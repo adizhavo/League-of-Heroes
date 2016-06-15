@@ -5,10 +5,10 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
 
     #region Card Implementation
     [SerializeField] private int manaCost;
-    [SerializeField] private string callCode;
+    [SerializeField] private string objectSpawnCodeCall;
 
     public int ManaCost { get { return manaCost; } }
-    public string ContentCallCode { get { return callCode; } }
+    public string ObjectSpawnCodeCall { get { return objectSpawnCodeCall; } }
 
     private enum States
     {
@@ -20,15 +20,32 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
 
     private bool isEnabled = false;
 
-    public bool IsEnabled()
+    public void Deploy(GridCell deployCell)
     {
-        return isEnabled;
+        // TODO : change to a multiplayer call and not to a pool call
+        // the non local clone will have inverted y/x axis and will have opposite direction
+        GameObject Unit = ObjectFactory.Instance.CreateObjectCode(objectSpawnCodeCall);
+        if (Unit == null) return;
+        // SetActive convert into a network destroy
+        if (deployCell.HasObstacle()) { Unit.SetActive(false); return; }
+
+        Deployable d = Unit.GetComponent<Deployable>();
+        if (d == null){ Unit = null; return; }
+
+        d.Deploy(deployCell);
+        d = null;
+        Unit = null;
     }
 
     public void Discard()
     {
         cardState = States.Discarted;
         Destroy( gameObject );
+    }
+
+    public bool IsEnabled()
+    {
+        return isEnabled;
     }
     #endregion
 
@@ -57,6 +74,8 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
     #endregion
 
     [SerializeField] private float lerpSpeed;
+    [SerializeField] private Sprite cardSprite;
+    public Sprite CardSprite { get { return cardSprite; } } 
 
     private void Awake()
     {

@@ -3,10 +3,11 @@
 public interface Card
 {
     int ManaCost {get;}
-    string ContentCallCode {get;}
+    string ObjectSpawnCodeCall {get;}
 
-    bool IsEnabled();
+    void Deploy(GridCell deplyCell);
     void Discard();
+    bool IsEnabled();
 }
 
 public interface Movable
