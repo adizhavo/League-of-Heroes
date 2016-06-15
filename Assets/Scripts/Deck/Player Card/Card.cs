@@ -3,7 +3,7 @@
 public interface Card
 {
     int ManaCost {get;}
-    string ContentCallCode {get;}
+    string ObjectSpawnCodeCall {get;}
 
     bool IsEnabled();
     void Discard();

@@ -5,10 +5,10 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
 
     #region Card Implementation
     [SerializeField] private int manaCost;
-    [SerializeField] private string callCode;
+    [SerializeField] private string objectSpawnCodeCall;
 
     public int ManaCost { get { return manaCost; } }
-    public string ContentCallCode { get { return callCode; } }
+    public string ObjectSpawnCodeCall { get { return objectSpawnCodeCall; } }
 
     private enum States
     {
@@ -57,6 +57,8 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
     #endregion
 
     [SerializeField] private float lerpSpeed;
+    [SerializeField] private Sprite cardSprite;
+    public Sprite CardSprite { get { return cardSprite; } } 
 
     private void Awake()
     {
