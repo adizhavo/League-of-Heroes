@@ -13,6 +13,14 @@ public class ManaBar : MonoBehaviour
     public delegate void BlockLoaded(int block);
     public static event BlockLoaded OnManaLoaded;
 
+    private static ManaBar instance;
+    public static ManaBar Instance { get { return instance; } }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
         currentBlock = LoadingBlock();
