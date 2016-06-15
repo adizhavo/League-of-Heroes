@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7951467e558a040fca453740d6a484d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 2
-  objectSpawnCodeCall: 
+  manaCost: 1
+  objectSpawnCodeCall: LightCard
   lerpSpeed: 4
   cardSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &11407140

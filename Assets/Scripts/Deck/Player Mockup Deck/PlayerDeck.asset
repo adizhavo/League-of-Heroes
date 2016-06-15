@@ -13,3 +13,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerCards:
   - {fileID: 11400958, guid: 8570ee4ccfe0d44de803f04d35be6bbc, type: 2}
+  - {fileID: 11400958, guid: a8f87c5eb98264c61b39e11c6706071c, type: 2}
+  - {fileID: 11400958, guid: 2303b9410b91f4068a85bd68d1d6b78c, type: 2}

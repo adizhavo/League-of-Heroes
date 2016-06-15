@@ -28,8 +28,9 @@ public class Grid : MonoBehaviour
                 GameObject cellInstance = ObjectFactory.Instance.CreateObjectCode(PrefabGridCall);
                 cellInstance.transform.position = transform.position + new Vector3((x - GridSize.X/2f) * CellSpace, (y - GridSize.Y/2f) * CellSpace, 0f);
 
-                GridCell cell = GetComponent<GridCell>();
+                GridCell cell = cellInstance.GetComponent<GridCell>();
                 cells[x, y] = cell != null ? cell : cellInstance.AddComponent<GridCell>();
+                cells[x, y].Init(x, y);
             }
     }
 
@@ -41,6 +42,11 @@ public class Grid : MonoBehaviour
     public GridCell GetCell(int x, int y)
     {
         return IsCellInGrid(x, y) ? cells[x, y] : null;
+    }
+
+    public GridCell GetCell(IntVector2 idPos)
+    {
+        return IsCellInGrid(idPos.X, idPos.Y) ? cells[idPos.X, idPos.Y] : null;
     }
 }
 
@@ -54,6 +60,11 @@ public struct IntVector2
     {
         this.X = X;
         this.Y = Y;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("[IntVector2] X: {0}, Y: {1}", X, Y);
     }
 
     public static IntVector2 operator +(IntVector2 a, IntVector2 b)
