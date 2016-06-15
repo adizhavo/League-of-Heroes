@@ -14,14 +14,13 @@ public class CardPicker : MonoBehaviour {
             DragCardToGrid();
         else if (Input.GetMouseButtonUp(0))
             ReleaseCard();
-            
 	}
 
     private void CheckForCardSelection()
     {
         RaycastHit2D hit2D = GetHitOnMousePos();
 
-        if (hit2D == null) return;
+        if (hit2D.transform == null) return;
 
         selectedCard = hit2D.transform.GetComponent<Card>();
     }
@@ -42,15 +41,24 @@ public class CardPicker : MonoBehaviour {
 
     private bool isSelectionValid(RaycastHit2D hit2D)
     {
-        return selectedCard == null || !selectedCard.IsEnabled() || hit2D == null || hit2D.transform == null;
+        return selectedCard == null || !selectedCard.IsEnabled() || hit2D.transform == null;
     }
 
     private void ReleaseCard()
     {
+        if (selectedCard == null)
+        {
+            selector.Release();
+            return;
+        }
+
+        selectedCard.Deploy(selector.SelectedCell);
         selector.Release();
+        UpdateManaBar();
+    }
 
-        if (selectedCard == null) return;
-
+    private void UpdateManaBar()
+    {
         int manaCost = selectedCard.ManaCost;
         selectedCard.Discard();
         ManaBar.Instance.ConsumeMana(manaCost);
@@ -63,9 +71,9 @@ public class CardPicker : MonoBehaviour {
     }
 }
 
-public class GridSelector
+public struct GridSelector
 {
-    private GridCell currentGridCell;
+    public GridCell SelectedCell;
 
     public void HighlightPiece(GridCell cell)
     {
@@ -75,16 +83,16 @@ public class GridSelector
             return;
         }
 
-        if (currentGridCell != cell && currentGridCell != null)
-            currentGridCell.ResetHighlight();
+        if (SelectedCell != cell && SelectedCell != null)
+            SelectedCell.ResetHighlight();
         
-        currentGridCell = cell;
-        currentGridCell.Highlight();
+        SelectedCell = cell;
+        SelectedCell.Highlight();
     }
 
     public void Release()
     {
-        if (currentGridCell != null) currentGridCell.ResetHighlight();
-        currentGridCell = null;
+        if (SelectedCell != null) SelectedCell.ResetHighlight();
+        SelectedCell = null;
     }
 }

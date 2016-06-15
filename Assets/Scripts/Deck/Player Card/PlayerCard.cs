@@ -20,15 +20,28 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
 
     private bool isEnabled = false;
 
-    public bool IsEnabled()
+    public void Deploy(GridCell deployCell)
     {
-        return isEnabled;
+        GameObject Unit = ObjectFactory.Instance.CreateObjectCode(objectSpawnCodeCall);
+        if (Unit == null) return;
+
+        Deployable d = Unit.GetComponent<Deployable>();
+        if (d == null){ Unit = null; return; }
+
+        d.Deploy(deployCell);
+        d = null;
+        Unit = null;
     }
 
     public void Discard()
     {
         cardState = States.Discarted;
         Destroy( gameObject );
+    }
+
+    public bool IsEnabled()
+    {
+        return isEnabled;
     }
     #endregion
 
