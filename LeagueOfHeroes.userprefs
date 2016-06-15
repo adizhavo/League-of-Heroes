@@ -1,1 +1,20 @@
-﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj" />
+﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Deck/CardBar.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Deck/Card.cs" Line="14" Column="66" />
+      <File FileName="Assets/Scripts/Deck/PlayerCard.cs" Line="40" Column="6" />
+      <File FileName="Assets/PlayerCardHighlighter.cs" Line="12" Column="76" />
+      <File FileName="Assets/Scripts/ManaBar/ManaBar.cs" Line="21" Column="25" />
+      <File FileName="Assets/Scripts/Grid/GridCell.cs" Line="4" Column="40" />
+      <File FileName="Assets/Scripts/Deck/CardPicker.cs" Line="35" Column="33" />
+      <File FileName="Assets/Scripts/Deck/CardBarPositioner.cs" Line="8" Column="5" />
+      <File FileName="Assets/Scripts/Deck/CardBar.cs" Line="22" Column="10" />
+      <File FileName="Assets/Scripts/Deck/NextCard.cs" Line="33" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

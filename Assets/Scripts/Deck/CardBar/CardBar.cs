@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayableCard : MonoBehaviour 
+public class CardBar : MonoBehaviour 
 {
     [SerializeField] private int cardToHold;
     [SerializeField] private NextCard nextCard;
-    [SerializeField] private CardPositioner positioner;
+    [SerializeField] private CardBarPositioner positioner;
 
     private Movable[] cards;
 
     private void Awake()
     {
-        cards = new PlayCard[cardToHold];
+        cards = new PlayerCard[cardToHold];
     }
 
     private void LateUpdate()
@@ -28,7 +28,7 @@ public class PlayableCard : MonoBehaviour
     private int EmptySpace()
     {
         for (int c = 0; c < cards.Length; c ++)
-            if (cards[c] == null) return c;
+            if (cards[c] == null || cards[c].IsDestroyed()) return c;
 
         return -1;
     } 

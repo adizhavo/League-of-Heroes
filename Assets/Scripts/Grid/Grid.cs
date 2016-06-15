@@ -10,6 +10,8 @@ public class Grid : MonoBehaviour
     [SerializeField] private IntVector2 GridSize;
     [SerializeField] private float CellSpace;
 
+    private GridCell[,] cells;
+
 	private void Start () 
     {
         instance = this;
@@ -18,17 +20,27 @@ public class Grid : MonoBehaviour
 
     private void CreateGrid()
     {
+        cells = new GridCell[GridSize.X, GridSize.Y];
+
         for (int x = 0; x < GridSize.X; x ++)
             for (int y = 0; y < GridSize.Y; y ++)
             {
                 GameObject cellInstance = ObjectFactory.Instance.CreateObjectCode(PrefabGridCall);
                 cellInstance.transform.position = transform.position + new Vector3((x - GridSize.X/2f) * CellSpace, (y - GridSize.Y/2f) * CellSpace, 0f);
+
+                GridCell cell = GetComponent<GridCell>();
+                cells[x, y] = cell != null ? cell : cellInstance.AddComponent<GridCell>();
             }
     }
 
     public bool IsCellInGrid(int x, int y)
     {
         return y < GridSize.Y && x < GridSize.X && y >= 0 && x >= 0 ;
+    }
+
+    public GridCell GetCell(int x, int y)
+    {
+        return IsCellInGrid(x, y) ? cells[x, y] : null;
     }
 }
 

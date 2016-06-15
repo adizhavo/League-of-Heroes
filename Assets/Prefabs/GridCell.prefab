@@ -8,6 +8,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 447232}
+  - 61: {fileID: 6113062}
+  - 114: {fileID: 11480286}
+  - 114: {fileID: 11474392}
   m_Layer: 0
   m_Name: GridCell
   m_TagString: Untagged
@@ -56,6 +59,45 @@ Transform:
   - {fileID: 442266}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6113062
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149514}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3}
+--- !u!114 &11474392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e3f1c3d66e6e436e904103540b3b534, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HiglightColor: {r: 0.48913276, g: 0.8014706, b: 0.6334544, a: 1}
+  SpRenderer: {fileID: 21258078}
+--- !u!114 &11480286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d77093ae9f974719b13ab9775dec9b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlighter: {fileID: 11474392}
 --- !u!212 &21258078
 SpriteRenderer:
   m_ObjectHideFlags: 1

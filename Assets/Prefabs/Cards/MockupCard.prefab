@@ -8,7 +8,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 456476}
+  - 61: {fileID: 6157682}
   - 114: {fileID: 11400958}
+  - 114: {fileID: 11407140}
   m_Layer: 0
   m_Name: MockupCard
   m_TagString: Untagged
@@ -57,6 +59,20 @@ Transform:
   - {fileID: 419434}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!61 &6157682
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108596}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!114 &11400958
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,12 +81,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 108596}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49cfd352db58a40e7bb241fe802ba00e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7951467e558a040fca453740d6a484d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 1
+  manaCost: 2
   callCode: 
   lerpSpeed: 4
+--- !u!114 &11407140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1e873ede95e433dbb5a2bcd6f22b37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 11400958}
+  SpRenderer: {fileID: 21227842}
+  DisableColor: {r: 0.5514706, g: 0.5514706, b: 0.5514706, a: 1}
 --- !u!212 &21227842
 SpriteRenderer:
   m_ObjectHideFlags: 1

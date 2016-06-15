@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CardPositioner : MonoBehaviour {
+public class CardBarPositioner : MonoBehaviour {
 
     [SerializeField] private Transform[] cardPositions;
 

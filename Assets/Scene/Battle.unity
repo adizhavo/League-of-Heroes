@@ -212,11 +212,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 520566361}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1964650527}
-  m_RootOrder: 2
+  m_Father: {fileID: 1822655219}
+  m_RootOrder: 0
 --- !u!114 &520566363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +249,45 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!1 &733012924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 733012925}
+  - 114: {fileID: 733012926}
+  m_Layer: 0
+  m_Name: CardPicker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &733012925
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 733012924}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1964650527}
+  m_RootOrder: 2
+--- !u!114 &733012926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 733012924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 821179283eed04a07be6f13f8b460511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &892490391
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +679,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687055758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41b0949d800d04edea11d8aa2b06db5b, type: 3}
+  m_Script: {fileID: 11500000, guid: ec479113c920b4f65840ef4fc299e1ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardToHold: 4
@@ -654,7 +693,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1687055758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: def164e456ff34abca086e5ba4b45d20, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f47748dd9f6d48abb0d5139e5977487, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cardPositions:
@@ -974,7 +1013,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 520566362}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!1 &1950044250
@@ -1046,6 +1086,6 @@ Transform:
   m_Children:
   - {fileID: 346935340}
   - {fileID: 892490392}
-  - {fileID: 520566362}
+  - {fileID: 733012925}
   m_Father: {fileID: 0}
   m_RootOrder: 1
