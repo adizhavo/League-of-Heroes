@@ -34,9 +34,9 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         soldier.MoveCell(x, y);
     }
 
-    public void Deploy(GridCell deployCell)
+    public void MoveTo(GridCell deployCell)
     {
-        soldier.Deploy(deployCell);
+        soldier.MoveTo(deployCell);
     }
 
     public void Destroy()
@@ -71,6 +71,10 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
 
     private NetworkSoldier soldier;
     [SerializeField] private float moveSecLength;
+
+    [SerializeField] IntVector2 attackArea;
+    public IntVector2 AttackArea { get { return attackArea; } }
+
     private int direction = 1;
     public int Direction { get { return direction; } }
 

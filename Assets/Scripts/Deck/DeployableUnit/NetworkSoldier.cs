@@ -10,7 +10,7 @@ public abstract class NetworkSoldier : Deployable
         this.soldier = soldier;
     }
 
-    public virtual void Deploy(GridCell deployCell)
+    public virtual void MoveTo(GridCell deployCell)
     {
         if (deployCell == null)
         {
@@ -55,7 +55,7 @@ public class LocalSoldier : NetworkSoldier
     public override void MoveCell(int x, int y)
     {
         IntVector2 cellId = new IntVector2(x, y);
-        Deploy(Grid.Instance.GetCell(cellId));
+        MoveTo(Grid.Instance.GetCell(cellId));
     }
 
     public override void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
@@ -65,7 +65,7 @@ public class LocalSoldier : NetworkSoldier
 
         if (timeCounter > 1f)
         {
-            soldier.Deploy(soldier.MovingCell);
+            soldier.MoveTo(soldier.MovingCell);
             if (soldier.MovingCell != null)
                 soldier.photonView.RPC("MoveCell", PhotonTargets.Others, soldier.MovingCell.CellId.X, soldier.MovingCell.CellId.Y);
         }
@@ -73,9 +73,9 @@ public class LocalSoldier : NetworkSoldier
         timeCounter = Mathf.Clamp01(timeCounter);
     }
 
-    public override void Deploy(GridCell deployCell)
+    public override void MoveTo(GridCell deployCell)
     {
-        base.Deploy(deployCell);
+        base.MoveTo(deployCell);
         timeCounter = 0f;
     }
 }
@@ -94,9 +94,9 @@ public class SyncSoldier : NetworkSoldier
     {
     }
 
-    public override void Deploy(GridCell deployCell)
+    public override void MoveTo(GridCell deployCell)
     {
-        base.Deploy(deployCell);
+        base.MoveTo(deployCell);
         timeCounter = 0f;
     }
 
@@ -106,14 +106,14 @@ public class SyncSoldier : NetworkSoldier
         int gridYSize = Grid.Instance.YSize - 1;
         IntVector2 cellId = new IntVector2(x, y);
         cellId = new IntVector2(gridXSize, gridYSize) - cellId;
-        Deploy(Grid.Instance.GetCell(cellId));
+        MoveTo(Grid.Instance.GetCell(cellId));
     }
 
     public override void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
     {
         soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
         timeCounter += Time.deltaTime / moveSecLength;
-        if (timeCounter > 1f) soldier.Deploy(soldier.MovingCell);
+        if (timeCounter > 1f) soldier.MoveTo(soldier.MovingCell);
         timeCounter = Mathf.Clamp01(timeCounter);
     }
 }
