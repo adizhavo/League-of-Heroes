@@ -6,6 +6,9 @@ public class Grid : MonoBehaviour
     private static Grid instance;
     public static Grid Instance { get { return instance; } } 
 
+    public int XSize { get { return GridSize.X; } }
+    public int YSize { get { return GridSize.Y; } }
+
     [SerializeField] private string PrefabGridCall = "GridCell";
     [SerializeField] private IntVector2 GridSize;
     [SerializeField] private float CellSpace;
@@ -22,8 +25,8 @@ public class Grid : MonoBehaviour
     {
         cells = new GridCell[GridSize.X, GridSize.Y];
 
-        for (int x = 0; x < GridSize.X; x ++)
-            for (int y = 0; y < GridSize.Y; y ++)
+        for (int y = 0; y < GridSize.Y; y ++)
+            for (int x = 0; x < GridSize.X; x ++)
             {
                 GameObject cellInstance = ObjectFactory.Instance.CreateObjectCode(PrefabGridCall);
                 cellInstance.transform.position = transform.position + new Vector3((x - GridSize.X/2f) * CellSpace, (y - GridSize.Y/2f) * CellSpace, 0f);
@@ -70,5 +73,10 @@ public struct IntVector2
     public static IntVector2 operator +(IntVector2 a, IntVector2 b)
     {
         return new IntVector2(a.X + b.X, a.Y + b.Y);
+    }
+
+    public static IntVector2 operator -(IntVector2 a, IntVector2 b)
+    {
+        return new IntVector2(a.X - b.X, a.Y - b.Y);
     }
 }

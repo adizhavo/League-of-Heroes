@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manaCost: 2
-  objectSpawnCodeCall: RangeCard
+  objectSpawnCodeCall: RangeSoldier
   lerpSpeed: 4
   cardSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &11407140

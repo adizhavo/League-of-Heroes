@@ -6,7 +6,7 @@ public class NextCard : MonoBehaviour {
     public PlayerDeck currentPlayerDeck;
     public Transform nextCardTr;
 
-    private Movable nextCard;
+    private Card nextCard;
 
     private IEnumerator Start()
     {
@@ -17,12 +17,13 @@ public class NextCard : MonoBehaviour {
     private void GetCardFromDeck()
     {
         nextCard = currentPlayerDeck.GetCard();
+        nextCard.Present();
         nextCard.Position(nextCardTr.position, Vector3.one * 0.5f, true);
     }
 
-    public Movable GetNextCard()
+    public Card GetNextCard()
     {
-        Movable card = nextCard;
+        Card card = nextCard;
         GetCardFromDeck();
         return card;
     }

@@ -1,7 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Photon;
 
-public class Soldier : MonoBehaviour, Deployable, Content, Movable {
+public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movable {
+
+    private enum State
+    {
+        Spawned,
+        Deployed,
+        Destroyed
+    }
+    private State SoldierState;
 
     #region Content Implementation
     public bool IsObstacle()
@@ -11,51 +20,31 @@ public class Soldier : MonoBehaviour, Deployable, Content, Movable {
     #endregion
 
     #region Deployable Implementation
-    private GridCell nextCell;
-    public GridCell MovingCell { get { return nextCell; } }
-    // TODO : the non local clone will have inverted y/x axis and will have opposite direction
-    // id communication for moving in board and battle
-    // the cell will be dispached as properties information
-    public void Deploy(IntVector2 deployCellId)
+    public GridCell MovingCell { get; set;} 
+
+    public void InitialDeploy(IntVector2 deployCellId)
     {
-        Deploy(Grid.Instance.GetCell(deployCellId));
+        soldier.InitialDeploy(deployCellId);
     }
 
-    public void Deploy(GridCell deployCell)
+    [PunRPC]
+    public void MoveCell(int x, int y)
     {
-        if (deployCell == null)
-        {
-            Destroy();
-            return;
-        }
-
-        IntVector2 nextCoodrinate = deployCell.CellId + new IntVector2(0, direction);
-        // invert for non local also x Axis 
-
-        if(nextCell != null) nextCell.CellContent = null;
-
-        // Do Some enemy calculation
-        // For now we are just moving forward
-        nextCell = Grid.Instance.GetCell(nextCoodrinate);
-        if (nextCell != null)
-        {
-            nextCell.CellContent = this;
-            Position(deployCell.transform.position, nextCell.transform.position, true);
-        }
-        else
-            Destroy();
+        SoldierState = State.Spawned;
+        soldier.MoveCell(x, y);
     }
 
-    private void Destroy()
+    public void MoveTo(GridCell deployCell)
     {
-        // TODO : convert into a network destroy
-        gameObject.SetActive(false);
+        soldier.MoveTo(deployCell);
+    }
+
+    public void Destroy()
+    {
+        SoldierState = State.Destroyed;
+        PhotonNetwork.Destroy(gameObject);
     }
     #endregion
-
-    [SerializeField] private float moveSecLength;
-    // direction will be inverted for non local object
-    private int direction = 1;
 
     #region Movable Implementation
     private Vector3 movePos;
@@ -65,7 +54,6 @@ public class Soldier : MonoBehaviour, Deployable, Content, Movable {
     {
         this.movePos = movePos;
         this.initPos = initPos;
-        timeCounter = 0f;
 
         if (snap)
             transform.position = initPos;
@@ -73,18 +61,40 @@ public class Soldier : MonoBehaviour, Deployable, Content, Movable {
 
     public bool IsDestroyed()
     {
-        return gameObject.activeSelf;
+        return SoldierState.Equals(State.Destroyed) || gameObject.activeSelf;
     }
     #endregion
 
-    private float timeCounter;
+    #region IPunObservable implementation
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){}
+    #endregion
+
+    private NetworkSoldier soldier;
+    [SerializeField] private float moveSecLength;
+
+    [SerializeField] IntVector2 attackArea;
+    public IntVector2 AttackArea { get { return attackArea; } }
+
+    private int direction = 1;
+    public int Direction { get { return direction; } }
+
+    private void Awake()
+    {
+        SoldierState = State.Spawned;
+
+        if (photonView.isMine)
+            soldier = new LocalSoldier(this);
+        else
+            soldier = new SyncSoldier(this);
+    }
+
+    public void InvertDirection()
+    {
+        direction *= -1;
+    }
+
     private void Update()
     {
-        transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
-        timeCounter += Time.deltaTime / moveSecLength;
-
-        if(timeCounter > 1f) Deploy(nextCell);
-
-        timeCounter = Mathf.Clamp01(timeCounter);
+        soldier.FrameUpdate(initPos, movePos, moveSecLength);
     }
 }

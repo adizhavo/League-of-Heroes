@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using ExitGames.Client.Photon;
 
-public class PlayerCard : MonoBehaviour, Movable, Card {
+public class PlayerCard : MonoBehaviour, Card {
 
     #region Card Implementation
     [SerializeField] private int manaCost;
@@ -13,26 +14,38 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
     private enum States
     {
         InDeck,
+        Preview,
         Presented,
         Discarted
     }
     private States cardState;
-
     private bool isEnabled = false;
+
+    public void Present()
+    {
+        cardState = States.Preview;
+    }
+
+    public void Enable()
+    {
+        cardState = States.Presented;
+    }
+
+    public bool IsEnabled()
+    {
+        return cardState.Equals(States.Presented) && isEnabled;
+    }
 
     public void Deploy(GridCell deployCell)
     {
-        // TODO : change to a multiplayer call and not to a pool call
-        // the non local clone will have inverted y/x axis and will have opposite direction
-        GameObject Unit = ObjectFactory.Instance.CreateObjectCode(objectSpawnCodeCall);
+        GameObject Unit = PhotonNetwork.Instantiate(objectSpawnCodeCall, deployCell.transform.position, Quaternion.identity, 0);
         if (Unit == null) return;
-        // SetActive convert into a network destroy
-        if (deployCell.HasObstacle()) { Unit.SetActive(false); return; }
+        if (deployCell.HasObstacle()) { PhotonNetwork.Destroy(Unit); return; }
 
         Deployable d = Unit.GetComponent<Deployable>();
         if (d == null){ Unit = null; return; }
 
-        d.Deploy(deployCell);
+        d.InitialDeploy(deployCell.CellId);
         d = null;
         Unit = null;
     }
@@ -42,11 +55,6 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
         cardState = States.Discarted;
         Destroy( gameObject );
     }
-
-    public bool IsEnabled()
-    {
-        return isEnabled;
-    }
     #endregion
 
     #region Movable Implementation
@@ -55,8 +63,6 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
 
     public void Position(Vector3 movePos, Vector3 scale, bool snap = false)
     {
-        cardState = States.Presented;
-
         this.movePos = movePos;
         this.scale = scale;
 

@@ -3,3 +3,4 @@ Temp
 *.csproj
 *.sln
 obj/Debug
+*.apk

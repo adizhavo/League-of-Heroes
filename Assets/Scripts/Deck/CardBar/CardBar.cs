@@ -7,7 +7,7 @@ public class CardBar : MonoBehaviour
     [SerializeField] private NextCard nextCard;
     [SerializeField] private CardBarPositioner positioner;
 
-    private Movable[] cards;
+    private Card[] cards;
 
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class CardBar : MonoBehaviour
         if (emptySlot != -1 && nextCard.HasNext())
         {
             cards[emptySlot] = nextCard.GetNextCard();
+            cards[emptySlot].Enable();
             cards[emptySlot].Position(positioner.GetPosition(emptySlot), Vector3.one);
         }
     }
