@@ -31,7 +31,7 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
         Deployable d = Unit.GetComponent<Deployable>();
         if (d == null){ Unit = null; return; }
 
-        d.Deploy(deployCell.CellId);
+        d.InitialDeploy(deployCell.CellId);
         d = null;
         Unit = null;
     }

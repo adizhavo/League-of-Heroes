@@ -330,7 +330,7 @@ MonoBehaviour:
   PrefabGridCall: GridCell
   GridSize:
     X: 16
-    Y: 21
+    Y: 22
   CellSpace: 0.3
 --- !u!1 &1153603080
 GameObject:

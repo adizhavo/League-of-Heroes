@@ -20,65 +20,31 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     #endregion
 
     #region Deployable Implementation
-    private GridCell nextCell;
-    public GridCell MovingCell { get { return nextCell; } }
+    public GridCell MovingCell { get; set;} 
 
-    public void Deploy(IntVector2 deployCellId)
+    public void InitialDeploy(IntVector2 deployCellId)
     {
-        if (photonView.isMine)
-            photonView.RPC("MoveCell", PhotonTargets.All, deployCellId.X, deployCellId.Y);
+        soldier.InitialDeploy(deployCellId);
     }
 
     [PunRPC]
     public void MoveCell(int x, int y)
     {
-        SoldierState = State.Deployed;
-        IntVector2 cellId = new IntVector2(x, y);
-
-        if (!photonView.isMine)
-        {
-            int gridXSize = Grid.Instance.XSize - 1;
-            int gridYSize = Grid.Instance.YSize - 1;
-            IntVector2 tempId = new IntVector2(gridXSize, gridYSize);
-            cellId = tempId - cellId;
-        }
-
-        Deploy(Grid.Instance.GetCell(cellId));
+        SoldierState = State.Spawned;
+        soldier.MoveCell(x, y);
     }
 
     public void Deploy(GridCell deployCell)
     {
-        if (deployCell == null)
-        {
-            Destroy();
-            return;
-        }
-
-        IntVector2 nextCoodrinate = deployCell.CellId + new IntVector2(0, direction);
-        if(nextCell != null) nextCell.CellContent = null;
-
-        // Do Some enemy calculation
-        // For now we are just moving forward
-        nextCell = Grid.Instance.GetCell(nextCoodrinate);
-        if (nextCell != null)
-        {
-            nextCell.CellContent = this;
-            Position(deployCell.transform.position, nextCell.transform.position, true);
-        }
-        else
-            Destroy();
+        soldier.Deploy(deployCell);
     }
 
-    private void Destroy()
+    public void Destroy()
     {
         SoldierState = State.Destroyed;
         PhotonNetwork.Destroy(gameObject);
     }
     #endregion
-
-    [SerializeField] private float moveSecLength;
-    // direction will be inverted for non local object
-    private int direction = 1;
 
     #region Movable Implementation
     private Vector3 movePos;
@@ -88,7 +54,6 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     {
         this.movePos = movePos;
         this.initPos = initPos;
-        timeCounter = 0f;
 
         if (snap)
             transform.position = initPos;
@@ -104,28 +69,28 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){}
     #endregion
 
-    private float timeCounter = 0f;
+    private NetworkSoldier soldier;
+    [SerializeField] private float moveSecLength;
+    private int direction = 1;
+    public int Direction { get { return direction; } }
+
     private void Awake()
     {
         SoldierState = State.Spawned;
 
-        if(!photonView.isMine)
-            direction = -1;
+        if (photonView.isMine)
+            soldier = new LocalSoldier(this);
+        else
+            soldier = new SyncSoldier(this);
+    }
+
+    public void InvertDirection()
+    {
+        direction *= -1;
     }
 
     private void Update()
     {
-        if (SoldierState.Equals(State.Spawned)) return;
-
-        transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
-        timeCounter += Time.deltaTime / moveSecLength;
-
-        if(timeCounter > 1f && photonView.isMine)
-        {
-            Deploy(nextCell);
-            if (nextCell != null) photonView.RPC("MoveCell", PhotonTargets.Others, nextCell.CellId.X, nextCell.CellId.Y);
-        }
-
-        timeCounter = Mathf.Clamp01(timeCounter);
+        soldier.FrameUpdate(initPos, movePos, moveSecLength);
     }
 }
