@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using ExitGames.Client.Photon;
 
 public class PlayerCard : MonoBehaviour, Movable, Card {
 
@@ -13,6 +14,7 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
     private enum States
     {
         InDeck,
+        Preview,
         Presented,
         Discarted
     }
@@ -22,17 +24,14 @@ public class PlayerCard : MonoBehaviour, Movable, Card {
 
     public void Deploy(GridCell deployCell)
     {
-        // TODO : change to a multiplayer call and not to a pool call
-        // the non local clone will have inverted y/x axis and will have opposite direction
-        GameObject Unit = ObjectFactory.Instance.CreateObjectCode(objectSpawnCodeCall);
+        GameObject Unit = PhotonNetwork.Instantiate(objectSpawnCodeCall, deployCell.transform.position, Quaternion.identity, 0);
         if (Unit == null) return;
-        // SetActive convert into a network destroy
-        if (deployCell.HasObstacle()) { Unit.SetActive(false); return; }
+        if (deployCell.HasObstacle()) { PhotonNetwork.Destroy(Unit); return; }
 
         Deployable d = Unit.GetComponent<Deployable>();
         if (d == null){ Unit = null; return; }
 
-        d.Deploy(deployCell);
+        d.Deploy(deployCell.CellId);
         d = null;
         Unit = null;
     }
