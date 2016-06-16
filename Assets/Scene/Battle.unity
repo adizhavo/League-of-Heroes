@@ -85,48 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &12951382
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 12951383}
-  - 114: {fileID: 12951384}
-  m_Layer: 0
-  m_Name: MediumSoldier
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &12951383
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 12951382}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 346935340}
-  m_RootOrder: 3
---- !u!114 &12951384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 12951382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectToPool: {fileID: 108596, guid: 8570ee4ccfe0d44de803f04d35be6bbc, type: 2}
-  PoolSize: 20
-  ParentName: MediumCard
 --- !u!1 &325822335
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +119,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 170, y: 390}
+  m_AnchoredPosition: {x: 170, y: 420}
   m_SizeDelta: {x: 1360, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &325822337
@@ -212,9 +170,6 @@ Transform:
   m_Children:
   - {fileID: 1950044251}
   - {fileID: 1223794679}
-  - {fileID: 1140112708}
-  - {fileID: 12951383}
-  - {fileID: 585254559}
   m_Father: {fileID: 1964650527}
   m_RootOrder: 0
 --- !u!114 &346935341
@@ -233,12 +188,6 @@ MonoBehaviour:
     Pool: {fileID: 1950044252}
   - CallCode: ManaBlock
     Pool: {fileID: 1223794680}
-  - CallCode: LightCard
-    Pool: {fileID: 1140112709}
-  - CallCode: MediumCard
-    Pool: {fileID: 12951384}
-  - CallCode: RangeCard
-    Pool: {fileID: 585254560}
 --- !u!1 &520566361
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,48 +249,6 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
---- !u!1 &585254558
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 585254559}
-  - 114: {fileID: 585254560}
-  m_Layer: 0
-  m_Name: RangeSoldier
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &585254559
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 585254558}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 346935340}
-  m_RootOrder: 4
---- !u!114 &585254560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 585254558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectToPool: {fileID: 107898, guid: 9a853f9744d0c4890b8a905f58840340, type: 2}
-  PoolSize: 20
-  ParentName: RangeCard
 --- !u!1 &733012924
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,48 +332,6 @@ MonoBehaviour:
     X: 16
     Y: 21
   CellSpace: 0.3
---- !u!1 &1140112707
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1140112708}
-  - 114: {fileID: 1140112709}
-  m_Layer: 0
-  m_Name: LightSoldier
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1140112708
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1140112707}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 346935340}
-  m_RootOrder: 2
---- !u!114 &1140112709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1140112707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObjectToPool: {fileID: 160662, guid: c00d96c7765e64d66a9870679b00174c, type: 2}
-  PoolSize: 20
-  ParentName: LightCard
 --- !u!1 &1153603080
 GameObject:
   m_ObjectHideFlags: 0
