@@ -65,7 +65,7 @@ public class LocalSoldier : NetworkSoldier
 
         if (timeCounter > 1f)
         {
-            soldier.MoveTo(soldier.MovingCell);
+            MoveTo(soldier.MovingCell);
             if (soldier.MovingCell != null)
                 soldier.photonView.RPC("MoveCell", PhotonTargets.Others, soldier.MovingCell.CellId.X, soldier.MovingCell.CellId.Y);
         }
@@ -104,8 +104,7 @@ public class SyncSoldier : NetworkSoldier
     {
         int gridXSize = Grid.Instance.XSize - 1;
         int gridYSize = Grid.Instance.YSize - 1;
-        IntVector2 cellId = new IntVector2(x, y);
-        cellId = new IntVector2(gridXSize, gridYSize) - cellId;
+        IntVector2 cellId = new IntVector2(gridXSize - x, gridYSize - y);
         MoveTo(Grid.Instance.GetCell(cellId));
     }
 
@@ -113,7 +112,6 @@ public class SyncSoldier : NetworkSoldier
     {
         soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
         timeCounter += Time.deltaTime / moveSecLength;
-        if (timeCounter > 1f) soldier.MoveTo(soldier.MovingCell);
         timeCounter = Mathf.Clamp01(timeCounter);
     }
 }

@@ -27,22 +27,10 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         soldier.InitialDeploy(deployCellId);
     }
 
-    [PunRPC]
-    public void MoveCell(int x, int y)
-    {
-        SoldierState = State.Spawned;
-        soldier.MoveCell(x, y);
-    }
-
-    public void MoveTo(GridCell deployCell)
-    {
-        soldier.MoveTo(deployCell);
-    }
-
     public void Destroy()
     {
         SoldierState = State.Destroyed;
-        PhotonNetwork.Destroy(gameObject);
+        if (photonView.isMine) PhotonNetwork.Destroy(gameObject);
     }
     #endregion
 
@@ -93,8 +81,17 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         direction *= -1;
     }
 
+    [PunRPC]
+    public void MoveCell(int x, int y)
+    {
+        SoldierState = State.Deployed;
+        soldier.MoveCell(x, y);
+    }
+
     private void Update()
     {
+        if (SoldierState.Equals(State.Spawned)) return;
+
         soldier.FrameUpdate(initPos, movePos, moveSecLength);
     }
 }
