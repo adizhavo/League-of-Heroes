@@ -11,7 +11,7 @@ public class GridCell : MonoBehaviour {
     public Content CellContent
     {
         set { content = (value == null) ? nullContent : value; }
-        get { return content; } } 
+        get { return content == null ? nullContent : content; } } 
 
     [SerializeField] private CellHighlighter highlighter;
 
@@ -39,6 +39,6 @@ public class GridCell : MonoBehaviour {
 
     public bool HasObstacle()
     {
-        return content.IsObstacle() || content == null;
+        return CellContent.IsObstacle();
     }
 }

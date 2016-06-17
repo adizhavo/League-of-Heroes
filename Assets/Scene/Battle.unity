@@ -170,6 +170,7 @@ Transform:
   m_Children:
   - {fileID: 1950044251}
   - {fileID: 1223794679}
+  - {fileID: 1910324772}
   m_Father: {fileID: 1964650527}
   m_RootOrder: 0
 --- !u!114 &346935341
@@ -188,6 +189,8 @@ MonoBehaviour:
     Pool: {fileID: 1950044252}
   - CallCode: ManaBlock
     Pool: {fileID: 1223794680}
+  - CallCode: SmallFloatingText
+    Pool: {fileID: 1910324773}
 --- !u!1 &520566361
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +333,7 @@ MonoBehaviour:
   PrefabGridCall: GridCell
   GridSize:
     X: 16
-    Y: 22
+    Y: 20
   CellSpace: 0.3
 --- !u!1 &1153603080
 GameObject:
@@ -764,8 +767,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 165, y: 280}
-  m_SizeDelta: {x: 110, y: 120}
+  m_AnchoredPosition: {x: 181.9, y: 280}
+  m_SizeDelta: {x: 143.9, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1787140276
 MonoBehaviour:
@@ -799,7 +802,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: '0
+
+'
 --- !u!222 &1787140277
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1017,6 +1022,48 @@ Transform:
   - {fileID: 520566362}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!1 &1910324771
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1910324772}
+  - 114: {fileID: 1910324773}
+  m_Layer: 0
+  m_Name: SmallFloatingText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1910324772
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1910324771}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 346935340}
+  m_RootOrder: 2
+--- !u!114 &1910324773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1910324771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectToPool: {fileID: 105546, guid: 5b27bc117905843e9bae1ed2007922c1, type: 2}
+  PoolSize: 40
+  ParentName: SmallFloatingText
 --- !u!1 &1950044250
 GameObject:
   m_ObjectHideFlags: 0
