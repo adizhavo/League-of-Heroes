@@ -39,4 +39,5 @@ MonoBehaviour:
   - TouchCustomProps
   - ReceiveCustomProps
   - MoveCell
+  - DamageNetwork
   DisableAutoOpenWizard: 1

@@ -46,8 +46,9 @@ public class CardPicker : MonoBehaviour {
 
     private void ReleaseCard()
     {
-        if (selectedCard == null)
+        if (selectedCard == null || selector.SelectedCell == null || selector.SelectedCell.HasObstacle())
         {
+            selectedCard = null;
             selector.Release();
             return;
         }

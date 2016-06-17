@@ -10,25 +10,23 @@ public abstract class NetworkSoldier : Deployable
         this.soldier = soldier;
     }
 
-    public virtual void MoveTo(GridCell deployCell)
+    protected virtual void MoveTo(GridCell currentCell)
     {
-        if (deployCell == null)
+        if (currentCell == null)
         {
             soldier.Destroy();
             return;
         }
 
-        IntVector2 nextCoodrinate = deployCell.CellId + new IntVector2(0, soldier.Direction);
+        IntVector2 nextCoodrinate = currentCell.CellId + new IntVector2(0, soldier.Direction);
         if (soldier.MovingCell != null)
             soldier.MovingCell.CellContent = null;
-
-        // Do Some enemy calculation
-        // For now we are just moving forward
+        
         soldier.MovingCell = Grid.Instance.GetCell(nextCoodrinate);
         if (soldier.MovingCell != null)
         {
             soldier.MovingCell.CellContent = soldier;
-            soldier.Position(deployCell.transform.position, soldier.MovingCell.transform.position, true);
+            soldier.Position(currentCell.transform.position, soldier.MovingCell.transform.position, true);
         }
         else
             soldier.Destroy();
@@ -55,7 +53,7 @@ public class LocalSoldier : NetworkSoldier
     public override void MoveCell(int x, int y)
     {
         IntVector2 cellId = new IntVector2(x, y);
-        MoveTo(Grid.Instance.GetCell(cellId));
+        this.MoveTo(Grid.Instance.GetCell(cellId));
     }
 
     public override void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
@@ -63,23 +61,18 @@ public class LocalSoldier : NetworkSoldier
         soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
         timeCounter += Time.deltaTime / moveSecLength;
 
-        if (timeCounter > 1f)
-        {
-            soldier.MoveTo(soldier.MovingCell);
-            if (soldier.MovingCell != null)
-                soldier.photonView.RPC("MoveCell", PhotonTargets.Others, soldier.MovingCell.CellId.X, soldier.MovingCell.CellId.Y);
-        }
+        if (timeCounter > 1f && soldier.MovingCell != null)
+            soldier.photonView.RPC("MoveCell", PhotonTargets.All, soldier.MovingCell.CellId.X, soldier.MovingCell.CellId.Y);
 
         timeCounter = Mathf.Clamp01(timeCounter);
     }
 
-    public override void MoveTo(GridCell deployCell)
+    protected override void MoveTo(GridCell deployCell)
     {
         base.MoveTo(deployCell);
         timeCounter = 0f;
     }
 }
-
 
 public class SyncSoldier : NetworkSoldier
 {
@@ -94,7 +87,7 @@ public class SyncSoldier : NetworkSoldier
     {
     }
 
-    public override void MoveTo(GridCell deployCell)
+    protected override void MoveTo(GridCell deployCell)
     {
         base.MoveTo(deployCell);
         timeCounter = 0f;
@@ -104,16 +97,14 @@ public class SyncSoldier : NetworkSoldier
     {
         int gridXSize = Grid.Instance.XSize - 1;
         int gridYSize = Grid.Instance.YSize - 1;
-        IntVector2 cellId = new IntVector2(x, y);
-        cellId = new IntVector2(gridXSize, gridYSize) - cellId;
-        MoveTo(Grid.Instance.GetCell(cellId));
+        IntVector2 cellId = new IntVector2(gridXSize - x, gridYSize - y);
+        this.MoveTo(Grid.Instance.GetCell(cellId));
     }
 
     public override void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
     {
         soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
         timeCounter += Time.deltaTime / moveSecLength;
-        if (timeCounter > 1f) soldier.MoveTo(soldier.MovingCell);
         timeCounter = Mathf.Clamp01(timeCounter);
     }
 }

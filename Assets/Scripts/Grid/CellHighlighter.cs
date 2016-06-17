@@ -8,11 +8,11 @@ public class CellHighlighter : MonoBehaviour {
 
     public void Highlight()
     {
-        SpRenderer.color = HiglightColor;
+        if (SpRenderer != null) SpRenderer.color = HiglightColor;
     }
 
     public void Release()
     {
-        SpRenderer.color = Color.white;
+        if (SpRenderer != null) SpRenderer.color = Color.white;
     }
 }
