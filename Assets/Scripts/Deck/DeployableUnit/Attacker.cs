@@ -8,17 +8,11 @@ public class Attacker : MonoBehaviour{
     [SerializeField] private AreaDamage AttackArea;
 
     private float timeCounter = 0f;
-    private Soldier soldier;
 
-    public void Init(Soldier soldier)
-    {
-        this.soldier = soldier;
-    }
-
-    public bool CanAttack(bool colorCells)
+    public bool CanAttack(GridCell currentCell, bool colorCells = true)
     { 
         FrameCheck();
-        AttackArea.ReadArea(soldier.CurrentCell, colorCells);
+        AttackArea.ReadArea(currentCell, colorCells);
         return AttackArea.HasDamagable();
     }
 

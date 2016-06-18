@@ -13,7 +13,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     #region Deployable Implementation
     public GridCell CurrentCell { get; set;} 
 
-    public void InitialDeploy(IntVector2 deployCellId)
+    public virtual void InitialDeploy(IntVector2 deployCellId)
     {
         soldier.InitialDeploy(deployCellId);
     }
@@ -27,20 +27,25 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         SoldierState = State.Destroyed;
         if (photonView.isMine) PhotonNetwork.Destroy(gameObject);
     }
+
+    public Vector3 GetPosition()
+    {
+        return soldier.GetPosition();
+    }
     #endregion
 
     #region Content Implementation
     public bool IsObstacle()
     {
-        return !IsDestroyed();
+        return false;
     }
     #endregion
 
     #region Movable Implementation
-    private Vector3 movePos;
-    private Vector3 initPos;
+    protected Vector3 movePos;
+    protected Vector3 initPos;
 
-    public void Position(Vector3 initPos, Vector3 movePos, bool snap = false)
+    public virtual void Position(Vector3 initPos, Vector3 movePos, bool snap = false)
     {
         this.movePos = movePos;
         this.initPos = initPos;
@@ -92,15 +97,16 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     protected NetworkSoldier soldier;
     [SerializeField] protected Attacker attacker;
     [SerializeField] protected SoldierHPBar soldierHp;
-    [SerializeField] protected float moveSecLength;
+    [SerializeField] private float moveSecLength;
 
-    private int direction = 1;
+    private bool isOpponent = false;
+
+    protected int direction = 1;
     public int Direction { get { return direction; } }
 
     protected virtual void Awake()
     {
         SoldierState = State.Spawned;
-        attacker.Init(this);
 
         if (photonView.isMine)
         {
@@ -111,6 +117,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         {
             soldier = new SyncSoldier(this);
             damagable = new SyncDamagable(this, soldierHp);
+            isOpponent = true;
         }
     }
 
@@ -120,7 +127,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     }
 
     [PunRPC]
-    public void MoveCell(int x, int y)
+    public virtual void MoveCell(int x, int y)
     {
         if (IsDestroyed()) return;
 
@@ -134,11 +141,11 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         damagable.Damage(value);
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if (!SoldierState.Equals(State.Moving) || photonView == null) return;
 
-        if(attacker.CanAttack(photonView.isMine) && photonView.isMine)
+        if(attacker.CanAttack(CurrentCell, photonView.isMine) && photonView.isMine)
         {
             attacker.Attack();
             return;

@@ -85,6 +85,48 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &124413106
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 124413107}
+  - 114: {fileID: 124413108}
+  m_Layer: 0
+  m_Name: Tower
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &124413107
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 124413106}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 346935340}
+  m_RootOrder: 3
+--- !u!114 &124413108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 124413106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectToPool: {fileID: 113958, guid: 5d19195a1d32e47efb2ced3344effd4f, type: 2}
+  PoolSize: 10
+  ParentName: Tower
 --- !u!1 &325822335
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +213,7 @@ Transform:
   - {fileID: 1950044251}
   - {fileID: 1223794679}
   - {fileID: 1910324772}
+  - {fileID: 124413107}
   m_Father: {fileID: 1964650527}
   m_RootOrder: 0
 --- !u!114 &346935341
@@ -191,6 +234,8 @@ MonoBehaviour:
     Pool: {fileID: 1223794680}
   - CallCode: SmallFloatingText
     Pool: {fileID: 1910324773}
+  - CallCode: Tower
+    Pool: {fileID: 124413108}
 --- !u!1 &520566361
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +669,67 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1668955212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1668955213}
+  - 114: {fileID: 1668955214}
+  m_Layer: 0
+  m_Name: TerrainObstacles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1668955213
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1668955212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1964650527}
+  m_RootOrder: 3
+--- !u!114 &1668955214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1668955212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66a4500d887964daf8c24b1302b385fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacles:
+  - cellIdToPosition:
+      X: 1
+      Y: 1
+    StopAreaSize:
+      X: 2
+      Y: 2
+    ObstacleCodeCall: Tower
+  - cellIdToPosition:
+      X: 8
+      Y: 0
+    StopAreaSize:
+      X: 2
+      Y: 2
+    ObstacleCodeCall: Tower
+  - cellIdToPosition:
+      X: 14
+      Y: 1
+    StopAreaSize:
+      X: 2
+      Y: 2
+    ObstacleCodeCall: Tower
 --- !u!1 &1687055758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,5 +1240,6 @@ Transform:
   - {fileID: 346935340}
   - {fileID: 892490392}
   - {fileID: 733012925}
+  - {fileID: 1668955213}
   m_Father: {fileID: 0}
   m_RootOrder: 1

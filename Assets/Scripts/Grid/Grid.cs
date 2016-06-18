@@ -15,11 +15,15 @@ public class Grid : MonoBehaviour
 
     private GridCell[,] cells;
 
-	private void Start () 
+    private void Awake()
     {
         instance = this;
+    }
+
+    private void Start()
+    {
         CreateGrid();
-	}
+    }
 
     private void CreateGrid()
     {
@@ -37,9 +41,19 @@ public class Grid : MonoBehaviour
             }
     }
 
+    public bool IsCellInGrid(IntVector2 id)
+    {
+        return IsCellInGrid(id.X, id.Y);
+    }
+
     public bool IsCellInGrid(int x, int y)
     {
         return y < GridSize.Y && x < GridSize.X && y >= 0 && x >= 0 ;
+    }
+
+    public GridCell GetCell(IntVector2 id)
+    {
+        return GetCell(id.X, id.Y);
     }
 
     public GridCell GetCell(int x, int y)
@@ -47,9 +61,26 @@ public class Grid : MonoBehaviour
         return IsCellInGrid(x, y) ? cells[x, y] : null;
     }
 
-    public GridCell GetCell(IntVector2 idPos)
+    public void FillWithSimpleObstacles(IntVector2 cellPos, IntVector2 areaSize)
     {
-        return IsCellInGrid(idPos.X, idPos.Y) ? cells[idPos.X, idPos.Y] : null;
+        SetCellContent(cellPos, areaSize, new SimpleObstacle());
+    }
+
+    public void ReleaseCells(IntVector2 cellPos, IntVector2 areaSize)
+    {
+        SetCellContent(cellPos, areaSize, null);
+    }
+
+    private void SetCellContent(IntVector2 cellPos, IntVector2 areaSize, Content content)
+    {
+        for (int x = cellPos.X - areaSize.X; x <= cellPos.X + areaSize.X; x++)
+            for (int y = cellPos.Y - areaSize.Y; y <= cellPos.Y + areaSize.Y; y++)
+                if (Grid.Instance.IsCellInGrid(x, y) && 
+                    (x != cellPos.X || y != cellPos.Y))
+                {
+                    GridCell cell = Grid.Instance.GetCell(x, y);
+                    cell.CellContent = content;
+                }
     }
 }
 

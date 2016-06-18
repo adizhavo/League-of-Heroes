@@ -12,3 +12,11 @@ public class NullContent : Content
         return false;
     }
 }
+
+public class SimpleObstacle : Content
+{
+    public bool IsObstacle()
+    {
+        return true;
+    }
+}

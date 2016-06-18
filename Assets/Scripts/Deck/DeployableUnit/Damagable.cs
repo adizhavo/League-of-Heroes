@@ -15,11 +15,11 @@ public class LocalDamagable : Damagable
 
     private float frameHp;
 
-    private Soldier soldier;
+    private Deployable deployable;
 
-    public LocalDamagable(Soldier soldier, SoldierHPBar soldierHp)
+    public LocalDamagable(Deployable soldier, SoldierHPBar soldierHp)
     {
-        this.soldier = soldier;
+        this.deployable = soldier;
         this.soldierHp = soldierHp;
         this.soldierHp.Init(this);
 
@@ -34,10 +34,10 @@ public class LocalDamagable : Damagable
     public void Damage(float value)
     {
         GameObject text = ObjectFactory.Instance.CreateObjectCode("SmallFloatingText");
-        text.GetComponent<FloatingText>().Display(soldier.transform.position, Random.Range(-1, 2), value.ToString());
+        text.GetComponent<FloatingText>().Display(deployable.GetPosition(), Random.Range(-1, 2), value.ToString());
 
         frameHp -= value;
-        if (frameHp <= 0f) soldier.Destroy();
+        if (frameHp <= 0f) deployable.Destroy();
     }
 
     public void FixDamages()
@@ -53,7 +53,7 @@ public class LocalDamagable : Damagable
 
 public class SyncDamagable : LocalDamagable
 {
-    public SyncDamagable(Soldier soldier, SoldierHPBar soldierHp) : base(soldier, soldierHp)
+    public SyncDamagable(Deployable soldier, SoldierHPBar soldierHp) : base(soldier, soldierHp)
     {
     }
 
