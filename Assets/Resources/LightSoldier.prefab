@@ -26,8 +26,9 @@ GameObject:
   - 4: {fileID: 472818}
   - 114: {fileID: 11442580}
   - 114: {fileID: 11420752}
-  - 114: {fileID: 11405660}
   - 114: {fileID: 11417908}
+  - 114: {fileID: 11405660}
+  - 114: {fileID: 11427514}
   m_Layer: 0
   m_Name: LightSoldier
   m_TagString: Untagged
@@ -87,6 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: 1
   AttackRate: 2
+  AttackArea: {fileID: 11405660}
 --- !u!114 &11420752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,9 +100,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414a664d20ae645559f66ec2b1abcc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackingArea: {fileID: 11405660}
   attacker: {fileID: 11417908}
+  soldierHp: {fileID: 11427514}
   moveSecLength: 1
+--- !u!114 &11427514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 099e72ac25fbc473790d379262313624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 5
 --- !u!114 &11442580
 MonoBehaviour:
   m_ObjectHideFlags: 1

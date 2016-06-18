@@ -11,7 +11,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     #endregion
 
     #region Deployable Implementation
-    public GridCell MovingCell { get; set;} 
+    public GridCell CurrentCell { get; set;} 
 
     public void InitialDeploy(IntVector2 deployCellId)
     {
@@ -22,7 +22,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     {
         if (IsDestroyed()) return;
 
-        if (MovingCell != null) MovingCell.CellContent = null;
+        if (CurrentCell != null) CurrentCell.CellContent = null;
 
         SoldierState = State.Destroyed;
         if (photonView.isMine) PhotonNetwork.Destroy(gameObject);
@@ -57,12 +57,21 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     #region Damagable Implementation
     protected Damagable damagable;
 
+    public float GetHp()
+    {
+        return damagable.GetHp();
+    }
+
     public void Damage(float value)
     {
-        if (IsDestroyed())
-            return; 
+        if (IsDestroyed()) return; 
         
         photonView.RPC("DamageNetwork", PhotonTargets.All, value);
+    }
+
+    public void FixDamages()
+    {
+        damagable.FixDamages();
     }
 
     public bool IsOpponent()
@@ -81,8 +90,8 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     protected State SoldierState;
 
     protected NetworkSoldier soldier;
-    [SerializeField] protected AreaDamage attackingArea;
     [SerializeField] protected Attacker attacker;
+    [SerializeField] protected SoldierHPBar soldierHp;
     [SerializeField] protected float moveSecLength;
 
     private int direction = 1;
@@ -91,16 +100,17 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     protected virtual void Awake()
     {
         SoldierState = State.Spawned;
+        attacker.Init(this);
 
         if (photonView.isMine)
         {
             soldier = new LocalSoldier(this);
-            damagable = new LocalDamagable(this);
+            damagable = new LocalDamagable(this, soldierHp);
         }
         else
         {
             soldier = new SyncSoldier(this);
-            damagable = new SyncDamagable(this);
+            damagable = new SyncDamagable(this, soldierHp);
         }
     }
 
@@ -128,14 +138,10 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     {
         if (!SoldierState.Equals(State.Moving) || photonView == null) return;
 
-        if (photonView.isMine)
+        if(attacker.CanAttack(photonView.isMine) && photonView.isMine)
         {
-            attackingArea.GetCellsInArea(MovingCell);
-            if(attackingArea.ContainsTargets())
-            {
-                if (attacker.CanAttack()) attacker.Attack(attackingArea.TargetContents);
-                return;
-            }
+            attacker.Attack();
+            return;
         }
 
         soldier.FrameUpdate(initPos, movePos, moveSecLength);

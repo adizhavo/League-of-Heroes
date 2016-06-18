@@ -7,26 +7,26 @@ public class AreaDamage : MonoBehaviour {
     public IntVector2 AttackArea { get { return attackArea; } }
 
     private List<GridCell> areaCells = new List<GridCell>();
-    private List<Damagable> damagableContents = new List<Damagable>();
-    public List<Damagable> TargetContents { get { return damagableContents; } }
 
-    public void GetCellsInArea(GridCell currentCell)
+    public void ReadArea(GridCell currentCell, bool highlight)
     {
         if (currentCell == null)
             return;
 
-        ClearAreaCells();
-        PopulateAreaCells(currentCell);
+        ClearAreaCells(highlight);
+        PopulateAreaCells(currentCell, highlight);
     }
 
-    private void ClearAreaCells()
+    private void ClearAreaCells(bool highlight)
     {
-        for (int i = 0; i < areaCells.Count; i++)
-            areaCells[i].ResetHighlight();
+        if (highlight)
+            for (int i = 0; i < areaCells.Count; i++)
+                areaCells[i].ResetHighlight();
+        
         areaCells.Clear();
     }
 
-    private void PopulateAreaCells(GridCell currentCell)
+    private void PopulateAreaCells(GridCell currentCell, bool highLight)
     {
         IntVector2 cellPos = currentCell.CellId;
 
@@ -36,32 +36,40 @@ public class AreaDamage : MonoBehaviour {
                     (x != cellPos.X || y != cellPos.Y))
                 {
                     GridCell cell = Grid.Instance.GetCell(x, y);
-                    cell.Highlight();
+                    if (highLight) cell.Highlight();
                     areaCells.Add(cell);
                 }
     }
 
     private void OnDestroy()
     {
-        ClearAreaCells();
+        ClearAreaCells(true);
     }
 
-    public bool ContainsTargets()
+    public bool HasDamagable()
     {
-        if (areaCells == null || areaCells.Count == 0)
-            return false;
-
-        damagableContents.Clear();
-
         for (int i = 0; i < areaCells.Count; i++)
         {
-            //if (areaCells[i].HasObstacle())
-            {
-                Damagable d = areaCells[i].CellContent as Damagable;
-                if (d != null && d.IsOpponent()) damagableContents.Add(d);
-            }
+            Damagable d = areaCells[i].CellContent as Damagable;
+            if (d != null && d.IsOpponent()) return true;
         }
 
-        return damagableContents.Count > 0;
+        return false;
+    }
+
+    public List<Damagable> GetDamagables()
+    {
+        List<Damagable> damagableContents = new List<Damagable>();
+
+        if (areaCells == null || areaCells.Count == 0)
+            return damagableContents;
+        
+        for (int i = 0; i < areaCells.Count; i++)
+        {
+            Damagable d = areaCells[i].CellContent as Damagable;
+            if (d != null && d.IsOpponent()) damagableContents.Add(d);
+        }
+
+        return damagableContents;
     }
 }

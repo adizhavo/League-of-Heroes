@@ -1,27 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Attacker : MonoBehaviour {
+public class Attacker : MonoBehaviour{
 
     [SerializeField] private float Damage;
     [SerializeField] private float AttackRate;
+    [SerializeField] private AreaDamage AttackArea;
 
     private float timeCounter = 0f;
+    private Soldier soldier;
 
-    public bool CanAttack()
+    public void Init(Soldier soldier)
     {
-        timeCounter += Time.deltaTime;
-        if (timeCounter > AttackRate)
-        {
-            timeCounter = 0f;
-            return true;
-        }
-        return false;
+        this.soldier = soldier;
     }
 
-    public void Attack(List<Damagable> targets)
+    public bool CanAttack(bool colorCells)
+    { 
+        FrameCheck();
+        AttackArea.ReadArea(soldier.CurrentCell, colorCells);
+        return AttackArea.HasDamagable();
+    }
+
+    public void Attack()
     {
-        for (int i = 0; i < targets.Count; i ++)
-            targets[i].Damage(Damage);
+        if (timeCounter >= AttackRate - Mathf.Epsilon)
+        {
+            timeCounter = 0f;
+            List<Damagable> targets = AttackArea.GetDamagables();
+
+            for (int i = 0; i < targets.Count; i++)
+                targets[i].Damage(Damage);
+        }
+    }
+
+    private void FrameCheck()
+    {
+        timeCounter += Time.deltaTime;
+        timeCounter = Mathf.Clamp(timeCounter, 0f, AttackRate + Mathf.Epsilon);
     }
 }

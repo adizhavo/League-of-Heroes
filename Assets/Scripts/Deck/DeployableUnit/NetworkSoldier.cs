@@ -2,8 +2,10 @@
 
 public abstract class NetworkSoldier : Deployable
 {
-    public GridCell MovingCell { get { return soldier.MovingCell; } }
+    public GridCell CurrentCell { get { return soldier.CurrentCell; } }
     protected Soldier soldier;
+
+    protected float timeCounter = 0f;
 
     public NetworkSoldier(Soldier soldier)
     {
@@ -19,28 +21,33 @@ public abstract class NetworkSoldier : Deployable
         }
 
         IntVector2 nextCoodrinate = currentCell.CellId + new IntVector2(0, soldier.Direction);
-        if (soldier.MovingCell != null)
-            soldier.MovingCell.CellContent = null;
+        if (soldier.CurrentCell != null)
+            soldier.CurrentCell.CellContent = null;
         
-        soldier.MovingCell = Grid.Instance.GetCell(nextCoodrinate);
-        if (soldier.MovingCell != null)
+        soldier.CurrentCell = Grid.Instance.GetCell(nextCoodrinate);
+        if (soldier.CurrentCell != null)
         {
-            soldier.MovingCell.CellContent = soldier;
-            soldier.Position(currentCell.transform.position, soldier.MovingCell.transform.position, true);
+            soldier.CurrentCell.CellContent = soldier;
+            soldier.Position(currentCell.transform.position, soldier.CurrentCell.transform.position, true);
         }
         else
             soldier.Destroy();
+        timeCounter = 0f;
+    }
+
+    public virtual void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
+    {
+        soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
+        timeCounter += Time.deltaTime / moveSecLength;
+        timeCounter = Mathf.Clamp(timeCounter, 0f, 1f + Mathf.Epsilon );
     }
 
     public abstract void InitialDeploy(IntVector2 deployCellId);
     public abstract void MoveCell(int x, int y);
-    public abstract void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength);
 }
 
 public class LocalSoldier : NetworkSoldier
 {
-    private float timeCounter = 0f;
-
     public LocalSoldier(Soldier soldier) : base (soldier)
     {
     }
@@ -53,31 +60,19 @@ public class LocalSoldier : NetworkSoldier
     public override void MoveCell(int x, int y)
     {
         IntVector2 cellId = new IntVector2(x, y);
-        this.MoveTo(Grid.Instance.GetCell(cellId));
+        MoveTo(Grid.Instance.GetCell(cellId));
     }
 
     public override void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
     {
-        soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
-        timeCounter += Time.deltaTime / moveSecLength;
-
-        if (timeCounter > 1f && soldier.MovingCell != null)
-            soldier.photonView.RPC("MoveCell", PhotonTargets.All, soldier.MovingCell.CellId.X, soldier.MovingCell.CellId.Y);
-
-        timeCounter = Mathf.Clamp01(timeCounter);
-    }
-
-    protected override void MoveTo(GridCell deployCell)
-    {
-        base.MoveTo(deployCell);
-        timeCounter = 0f;
+        base.FrameUpdate(initPos, movePos, moveSecLength);
+        if (timeCounter >= 1f - Mathf.Epsilon && soldier.CurrentCell != null)
+            soldier.photonView.RPC("MoveCell", PhotonTargets.All, soldier.CurrentCell.CellId.X, soldier.CurrentCell.CellId.Y);
     }
 }
 
 public class SyncSoldier : NetworkSoldier
 {
-    private float timeCounter = 0f;
-
     public SyncSoldier(Soldier soldier) : base (soldier)
     {
         this.soldier.InvertDirection();
@@ -87,24 +82,11 @@ public class SyncSoldier : NetworkSoldier
     {
     }
 
-    protected override void MoveTo(GridCell deployCell)
-    {
-        base.MoveTo(deployCell);
-        timeCounter = 0f;
-    }
-
     public override void MoveCell(int x, int y)
     {
         int gridXSize = Grid.Instance.XSize - 1;
         int gridYSize = Grid.Instance.YSize - 1;
         IntVector2 cellId = new IntVector2(gridXSize - x, gridYSize - y);
-        this.MoveTo(Grid.Instance.GetCell(cellId));
-    }
-
-    public override void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
-    {
-        soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
-        timeCounter += Time.deltaTime / moveSecLength;
-        timeCounter = Mathf.Clamp01(timeCounter);
+        MoveTo(Grid.Instance.GetCell(cellId));
     }
 }
