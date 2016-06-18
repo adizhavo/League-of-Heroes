@@ -6,6 +6,7 @@ public abstract class NetworkSoldier : Deployable
     protected Soldier soldier;
 
     protected float timeCounter = 0f;
+    private bool stop = false;
 
     public NetworkSoldier(Soldier soldier)
     {
@@ -16,23 +17,34 @@ public abstract class NetworkSoldier : Deployable
     {
         if (currentCell == null)
         {
-            soldier.Destroy();
+            Destroy();
             return;
         }
 
         IntVector2 nextCoodrinate = currentCell.CellId + new IntVector2(0, soldier.Direction);
-        if (soldier.CurrentCell != null)
-            soldier.CurrentCell.CellContent = null;
-        
-        soldier.CurrentCell = Grid.Instance.GetCell(nextCoodrinate);
-        if (soldier.CurrentCell != null)
+        GridCell nextCell = Grid.Instance.GetCell(nextCoodrinate);
+
+        if (nextCell == null)
         {
-            soldier.CurrentCell.CellContent = soldier;
-            soldier.Position(currentCell.transform.position, soldier.CurrentCell.transform.position, true);
+            Destroy();
+            return;
         }
-        else
-            soldier.Destroy();
-        timeCounter = 0f;
+
+        if (!nextCell.HasObstacle())
+        {
+            if (soldier.CurrentCell != null)
+                soldier.CurrentCell.CellContent = null;
+
+            soldier.CurrentCell = nextCell;
+            nextCell.CellContent = soldier;
+            soldier.Position(currentCell.transform.position, soldier.CurrentCell.transform.position, true);
+            timeCounter = 0f;
+        }
+    }
+
+    public void Destroy()
+    {
+        soldier.Destroy();
     }
 
     public virtual void FrameUpdate(Vector3 initPos, Vector3 movePos, float moveSecLength)
@@ -40,6 +52,11 @@ public abstract class NetworkSoldier : Deployable
         soldier.transform.position = Vector3.Lerp(initPos, movePos, timeCounter);
         timeCounter += Time.deltaTime / moveSecLength;
         timeCounter = Mathf.Clamp(timeCounter, 0f, 1f + Mathf.Epsilon );
+    }
+
+    public Vector3 GetPosition()
+    {
+        return soldier.transform.position;
     }
 
     public abstract void InitialDeploy(IntVector2 deployCellId);

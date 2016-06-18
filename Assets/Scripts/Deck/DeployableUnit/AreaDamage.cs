@@ -53,7 +53,6 @@ public class AreaDamage : MonoBehaviour {
             Damagable d = areaCells[i].CellContent as Damagable;
             if (d != null && d.IsOpponent()) return true;
         }
-
         return false;
     }
 
