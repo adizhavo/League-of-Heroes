@@ -21,6 +21,7 @@ public class Tower : Soldier {
     public override void Destroy()
     {
         if (IsDestroyed()) return;
+        CameraShake.Instance.DoShake(ShakeType.Medium);
         Grid.Instance.ReleaseCells(CurrentCell.CellId, StopAreaSize);
         base.Destroy();
     }

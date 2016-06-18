@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11407140}
   - 114: {fileID: 11410884}
   m_Layer: 0
-  m_Name: MediumCard
+  m_Name: FlyCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,8 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7951467e558a040fca453740d6a484d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manaCost: 4
-  objectSpawnCodeCall: MediumSoldier
+  manaCost: 2
+  objectSpawnCodeCall: FlySoldier
   lerpSpeed: 4
   cardSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!114 &11407140

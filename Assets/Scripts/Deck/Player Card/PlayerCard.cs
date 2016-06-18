@@ -58,18 +58,23 @@ public class PlayerCard : MonoBehaviour, Card {
     #endregion
 
     #region Movable Implementation
-    private Vector3 movePos;
-    private Vector3 scale;
 
     public void Position(Vector3 movePos, Vector3 scale, bool snap = false)
     {
-        this.movePos = movePos;
-        this.scale = scale;
-
         if (snap)
         {
-            transform.position = movePos;
-            transform.localScale = scale;
+            LeanTween.alpha(gameObject, 0f, 0f);
+            LeanTween.alpha(gameObject, 1f, 0.2f);
+            gameObject.transform.localScale = new Vector3(0.5f, 1.5f, 1f);
+            LeanTween.scale(gameObject, scale, 0.3f);
+            gameObject.transform.position = movePos + new Vector3(0f, .5f, 0f);
+            LeanTween.move(gameObject, movePos, 0.3f).setEase(LeanTweenType.easeOutBack);
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, movePos.y, transform.position.z);
+            LeanTween.scale(gameObject, scale, 0.4f);
+            LeanTween.move(gameObject, movePos, 0.4f).setEase(LeanTweenType.easeInOutQuad);
         }
     }
 
@@ -99,9 +104,9 @@ public class PlayerCard : MonoBehaviour, Card {
         isEnabled = block >= manaCost;
     }
 
-    private void Update()
-    {
-        transform.position = Vector3.Lerp(transform.position, movePos, Time.deltaTime * lerpSpeed);
-        transform.localScale = Vector3.Lerp(transform.localScale, scale, Time.deltaTime * lerpSpeed);
-    }
+//    private void Update()
+//    {
+//        transform.position = Vector3.Lerp(transform.position, movePos, Time.deltaTime * lerpSpeed);
+//        transform.localScale = Vector3.Lerp(transform.localScale, scale, Time.deltaTime * lerpSpeed);
+//    }
 }

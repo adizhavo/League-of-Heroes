@@ -25,7 +25,14 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         if (CurrentCell != null) CurrentCell.CellContent = null;
 
         SoldierState = State.Destroyed;
-        if (photonView.isMine) PhotonNetwork.Destroy(gameObject);
+
+        LeanTween.alpha(Graphic, 0f, 0.15f);
+        LeanTween.scale(Graphic, new Vector3(2f, 0.2f, 1f), 0.3f).setOnComplete( 
+            () =>
+            {
+                if (photonView.isMine) PhotonNetwork.Destroy(gameObject);
+            }
+        );
     }
 
     public Vector3 GetPosition()
@@ -98,6 +105,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     [SerializeField] protected Attacker attacker;
     [SerializeField] protected SoldierHPBar soldierHp;
     [SerializeField] private float moveSecLength;
+    [SerializeField] private GameObject Graphic;
 
     private bool isOpponent = false;
 
@@ -130,6 +138,16 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     public virtual void MoveCell(int x, int y)
     {
         if (IsDestroyed()) return;
+
+        if (!SoldierState.Equals(State.Moving))
+        {
+            LeanTween.alpha(Graphic, 0f, 0f);
+            LeanTween.alpha(Graphic, 1f, 0.15f);
+            Graphic.transform.localScale = new Vector3(0.2f, 2f, 1f);
+            LeanTween.scale(Graphic, Vector3.one, 0.25f);
+            Graphic.transform.localPosition += new Vector3(0f, 2f, 0f);
+            LeanTween.moveLocal(Graphic, Vector3.zero, 0.25f);
+        }
 
         SoldierState = State.Moving;
         soldier.MoveCell(x, y);

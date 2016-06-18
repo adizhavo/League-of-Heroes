@@ -22,13 +22,28 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &133958
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 426624}
   - 212: {fileID: 21282016}
+  m_Layer: 0
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &194828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 436160}
   m_Layer: 0
   m_Name: Graphic
   m_TagString: Untagged
@@ -43,10 +58,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 113958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 426624}
+  - {fileID: 436160}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &426624
@@ -55,10 +70,23 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133958}
-  m_LocalRotation: {x: 0, y: 0, z: 0.39564094, w: 0.9184053}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.8768673, y: 5.876871, z: 5.876871}
+  m_LocalScale: {x: 6, y: 6, z: 6}
   m_Children: []
+  m_Father: {fileID: 436160}
+  m_RootOrder: 0
+--- !u!4 &436160
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194828}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 426624}
   m_Father: {fileID: 405888}
   m_RootOrder: 0
 --- !u!114 &11404420
@@ -72,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099e72ac25fbc473790d379262313624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 5
+  maxHp: 10
 --- !u!114 &11408280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91210803866a434b9c7e053ba2c7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1.5
-  AttackRate: 1
+  Damage: 0.2
+  AttackRate: 0.2
   AttackArea: {fileID: 11433952}
 --- !u!114 &11433952
 MonoBehaviour:
@@ -99,8 +127,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackArea:
-    X: 4
-    Y: 4
+    X: 3
+    Y: 3
 --- !u!114 &11448120
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,6 +143,7 @@ MonoBehaviour:
   attacker: {fileID: 11408280}
   soldierHp: {fileID: 11404420}
   moveSecLength: 0
+  Graphic: {fileID: 194828}
   StopAreaSize:
     X: 1
     Y: 1
