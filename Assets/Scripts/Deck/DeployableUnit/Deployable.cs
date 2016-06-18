@@ -2,6 +2,6 @@
 
 public interface Deployable
 {
-    GridCell MovingCell {get;}
+    GridCell CurrentCell {get;}
     void InitialDeploy(IntVector2 initialCellId);
 }
