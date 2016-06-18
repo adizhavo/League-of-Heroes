@@ -80,13 +80,13 @@ public class MatchConnector : PunBehaviour
 
     private void SetStatus(string text)
     {
-        statusUI.text = text;
+        statusUI.text = text.ToUpper();
     }
 
     public void OnChangePlayerName(string name)
     {
         if (!string.IsNullOrEmpty(name))
-            PlayerPrefs.SetString("playername", name);
+            PlayerPrefs.SetString("playername", name.ToUpper());
     }
 
 

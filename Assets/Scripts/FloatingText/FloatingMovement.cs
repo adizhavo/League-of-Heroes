@@ -34,7 +34,7 @@ public class FloatingMovement : MonoBehaviour
         endPos.y = startPos.y + Mathf.Sin(currentAngle) * VerticalAmplitude;
 
         transform.position = Vector3.Lerp(startPos, endPos, timeCounter);
-        transform.localScale = Vector3.Lerp(new Vector3(0.2f, 3f, 1f), Vector3.one, timeCounter * 7f);
+        transform.localScale = Vector3.Lerp(new Vector3(3f, 0.2f, 1f), Vector3.one, timeCounter * 7f);
 
         SetAlphaValue(transform, 1f - timeCounter);
 

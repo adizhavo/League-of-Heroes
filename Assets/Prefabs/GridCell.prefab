@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e3f1c3d66e6e436e904103540b3b534, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HiglightColor: {r: 0.48913276, g: 0.8014706, b: 0.6334544, a: 1}
+  HiglightColor: {r: 0.48913276, g: 0.8014706, b: 0.6334544, a: 0.78431374}
   SpRenderer: {fileID: 21258078}
 --- !u!114 &11480286
 MonoBehaviour:

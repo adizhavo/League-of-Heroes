@@ -11,6 +11,23 @@ public class Tower : Soldier {
     }
     #endregion
 
+    #region Deployable Implementation
+    public override void InitialDeploy(IntVector2 deployCellId)
+    {
+        base.InitialDeploy(deployCellId);
+        Grid.Instance.FillWithSimpleObstacles(CurrentCell.CellId, StopAreaSize);
+    }
+
+    public override void Destroy()
+    {
+        if (IsDestroyed()) return;
+        CameraShake.Instance.DoShake(ShakeType.Medium);
+        Grid.Instance.ReleaseCells(CurrentCell.CellId, StopAreaSize);
+        base.Destroy();
+    }
+    #endregion
+
+    #region Concrete Tower Implementation
     [SerializeField] protected IntVector2 StopAreaSize;
 
     protected override void Awake()
@@ -19,15 +36,10 @@ public class Tower : Soldier {
         direction = 0;
     }
 
-    public override void InitialDeploy(IntVector2 deployCellId)
-    {
-        base.InitialDeploy(deployCellId);
-        Grid.Instance.FillWithSimpleObstacles(CurrentCell.CellId, StopAreaSize);
-    }
-
     protected override void Update()
     {
         if(attacker.CanAttack(CurrentCell, photonView.isMine) && photonView.isMine)
             attacker.Attack();
     }
+    #endregion
 }

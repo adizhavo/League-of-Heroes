@@ -4,7 +4,14 @@ using System.Collections;
 public class CellHighlighter : MonoBehaviour {
 
     [SerializeField] private Color HiglightColor;
+    private Color releaseColor = new Color(1f, 1f, 1f, 0.3f);
+
     [SerializeField] private SpriteRenderer SpRenderer;
+
+    private void Awake()
+    {
+        Release();
+    }
 
     public void Highlight()
     {
@@ -13,6 +20,6 @@ public class CellHighlighter : MonoBehaviour {
 
     public void Release()
     {
-        if (SpRenderer != null) SpRenderer.color = Color.white;
+        if (SpRenderer != null) SpRenderer.color = releaseColor;
     }
 }

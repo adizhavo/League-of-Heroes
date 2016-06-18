@@ -1,8 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &132646
+--- !u!1 &123850
 GameObject:
   m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 414212}
+  m_Layer: 0
+  m_Name: Graphic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &132646
+GameObject:
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
@@ -10,7 +25,7 @@ GameObject:
   - 4: {fileID: 469198}
   - 212: {fileID: 21251012}
   m_Layer: 0
-  m_Name: Graphic
+  m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,6 +51,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &414212
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 123850}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 469198}
+  m_Father: {fileID: 437030}
+  m_RootOrder: 0
 --- !u!4 &437030
 Transform:
   m_ObjectHideFlags: 1
@@ -43,10 +71,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 194300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9240727, y: -2.664785, z: 0.8507266}
+  m_LocalPosition: {x: 1000, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 469198}
+  - {fileID: 414212}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &469198
@@ -55,11 +83,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 132646}
-  m_LocalRotation: {x: 0, y: 0, z: 0.39564094, w: 0.9184053}
+  m_LocalRotation: {x: 0, y: 0, z: 0.38268346, w: 0.9238795}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.041728, y: 3.0417292, z: 3.0417292}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
-  m_Father: {fileID: 437030}
+  m_Father: {fileID: 414212}
   m_RootOrder: 0
 --- !u!114 &11456524
 MonoBehaviour:
@@ -100,6 +128,7 @@ MonoBehaviour:
   attacker: {fileID: 11493510}
   soldierHp: {fileID: 11499914}
   moveSecLength: 1
+  Graphic: {fileID: 123850}
 --- !u!114 &11463548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -112,8 +141,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackArea:
-    X: 2
-    Y: 2
+    X: 1
+    Y: 4
 --- !u!114 &11493510
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c91210803866a434b9c7e053ba2c7d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 2
-  AttackRate: 1
+  Damage: 0.4
+  AttackRate: 0.5
   AttackArea: {fileID: 11463548}
 --- !u!114 &11499914
 MonoBehaviour:
@@ -139,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099e72ac25fbc473790d379262313624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 5
+  maxHp: 7
 --- !u!212 &21251012
 SpriteRenderer:
   m_ObjectHideFlags: 1
