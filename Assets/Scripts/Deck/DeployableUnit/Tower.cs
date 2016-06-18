@@ -11,14 +11,6 @@ public class Tower : Soldier {
     }
     #endregion
 
-    [SerializeField] protected IntVector2 StopAreaSize;
-
-    protected override void Awake()
-    {
-        base.Awake();
-        direction = 0;
-    }
-
     #region Deployable Implementation
     public override void InitialDeploy(IntVector2 deployCellId)
     {
@@ -34,9 +26,19 @@ public class Tower : Soldier {
     }
     #endregion
 
+    #region Concrete Tower Implementation
+    [SerializeField] protected IntVector2 StopAreaSize;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        direction = 0;
+    }
+
     protected override void Update()
     {
         if(attacker.CanAttack(CurrentCell, photonView.isMine) && photonView.isMine)
             attacker.Attack();
     }
+    #endregion
 }
