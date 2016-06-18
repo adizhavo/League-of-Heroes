@@ -377,7 +377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PrefabGridCall: GridCell
   GridSize:
-    X: 16
+    X: 17
     Y: 20
   CellSpace: 0.3
 --- !u!1 &1153603080
@@ -711,23 +711,14 @@ MonoBehaviour:
   obstacles:
   - cellIdToPosition:
       X: 1
-      Y: 1
-    StopAreaSize:
-      X: 2
       Y: 2
     ObstacleCodeCall: Tower
   - cellIdToPosition:
       X: 8
       Y: 0
-    StopAreaSize:
-      X: 2
-      Y: 2
     ObstacleCodeCall: Tower
   - cellIdToPosition:
-      X: 14
-      Y: 1
-    StopAreaSize:
-      X: 2
+      X: 15
       Y: 2
     ObstacleCodeCall: Tower
 --- !u!1 &1687055758

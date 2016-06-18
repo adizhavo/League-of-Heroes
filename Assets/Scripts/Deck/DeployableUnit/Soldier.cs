@@ -18,7 +18,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         soldier.InitialDeploy(deployCellId);
     }
 
-    public void Destroy()
+    public virtual void Destroy()
     {
         if (IsDestroyed()) return;
 

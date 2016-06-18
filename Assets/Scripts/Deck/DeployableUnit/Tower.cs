@@ -19,11 +19,20 @@ public class Tower : Soldier {
         direction = 0;
     }
 
+    #region Deployable Implementation
     public override void InitialDeploy(IntVector2 deployCellId)
     {
         base.InitialDeploy(deployCellId);
         Grid.Instance.FillWithSimpleObstacles(CurrentCell.CellId, StopAreaSize);
     }
+
+    public override void Destroy()
+    {
+        if (IsDestroyed()) return;
+        Grid.Instance.ReleaseCells(CurrentCell.CellId, StopAreaSize);
+        base.Destroy();
+    }
+    #endregion
 
     protected override void Update()
     {
