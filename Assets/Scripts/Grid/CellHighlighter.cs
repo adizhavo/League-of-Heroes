@@ -4,7 +4,7 @@ using System.Collections;
 public class CellHighlighter : MonoBehaviour {
 
     [SerializeField] private Color HiglightColor;
-    private Color releaseColor = new Color(1f, 1f, 1f, 0.3f);
+    private Color releaseColor = new Color(1f, 1f, 1f, 0.5f);
 
     [SerializeField] private SpriteRenderer SpRenderer;
 

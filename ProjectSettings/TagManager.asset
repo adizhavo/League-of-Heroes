@@ -44,3 +44,9 @@ TagManager:
   - name: FloatingText
     uniqueID: 3231431655
     locked: 0
+  - name: HpBar
+    uniqueID: 2944717897
+    locked: 0
+  - name: UI
+    uniqueID: 619441661
+    locked: 0

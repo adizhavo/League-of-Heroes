@@ -1,13 +1,11 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Deck/DeployableUnit/Tower.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/MatchEntry.cs">
     <Files>
-      <File FileName="Assets/Scripts/Deck/DeployableUnit/Soldier.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Deck/DeployableUnit/Tower.cs" Line="18" Column="35" />
-      <File FileName="Assets/Scripts/Grid/GridObstacle.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Grid/Grid.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Grid/CellHighlighter.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Deck/DeployableUnit/SoldierHPBar.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Multiplayer/PlayerInRoom.cs" Line="43" Column="77" />
+      <File FileName="Assets/Scripts/Deck/CardBar/CardPicker.cs" Line="11" Column="56" />
+      <File FileName="Assets/Scripts/Match/MatchObserver.cs" Line="25" Column="21" />
+      <File FileName="Assets/MatchEntry.cs" Line="4" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

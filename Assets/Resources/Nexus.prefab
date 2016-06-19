@@ -9,10 +9,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 405888}
   - 114: {fileID: 11468828}
-  - 114: {fileID: 11448120}
+  - 114: {fileID: 11447498}
   - 114: {fileID: 11408280}
   - 114: {fileID: 11433952}
   - 114: {fileID: 11404420}
+  - 114: {fileID: 11465002}
   m_Layer: 0
   m_Name: Nexus
   m_TagString: Untagged
@@ -100,7 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099e72ac25fbc473790d379262313624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 15
+  maxHp: 20
+  HpBarPrefab: {fileID: 156314, guid: abb16e2b4dee24a07bce92bb2835ed92, type: 2}
+  HpLocalPos: {x: 0, y: 0.6, z: 0}
+  HpLocalScale: {x: 2, y: 1, z: 1}
 --- !u!114 &11408280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -129,7 +133,7 @@ MonoBehaviour:
   attackArea:
     X: 4
     Y: 4
---- !u!114 &11448120
+--- !u!114 &11447498
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -137,16 +141,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 113958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad075ec5445224b1194773b1a768044e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ba654720a71445d9a42b307cd481c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 11408280}
   soldierHp: {fileID: 11404420}
+  unitAnimation: {fileID: 11465002}
   moveSecLength: 0
-  Graphic: {fileID: 194828}
   StopAreaSize:
     X: 1
     Y: 1
+--- !u!114 &11465002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a1a7eb5c702411d9e4d5d67322772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphic: {fileID: 194828}
 --- !u!114 &11468828
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,7 +183,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 11448120}
+  - {fileID: 11447498}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
@@ -199,7 +215,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.30033523, g: 0.3948984, b: 0.74264705, a: 1}
+  m_Color: {r: 0.9117647, g: 0.5229239, b: 0.5470588, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &100100000

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
 using Photon;
+using UnityEngine;
 
 public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movable, Damagable {
 
@@ -21,13 +21,10 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     public virtual void Destroy()
     {
         if (IsDestroyed()) return;
-
-        if (CurrentCell != null) CurrentCell.CellContent = null;
-
         SoldierState = State.Destroyed;
 
-        LeanTween.alpha(Graphic, 0f, 0.15f);
-        LeanTween.scale(Graphic, new Vector3(2f, 0.2f, 1f), 0.3f).setOnComplete( 
+        if (CurrentCell != null) CurrentCell.CellContent = null;
+        unitAnimation.AnimateDestroy(
             () =>
             {
                 if (photonView.isMine) PhotonNetwork.Destroy(gameObject);
@@ -104,10 +101,8 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     protected NetworkSoldier soldier;
     [SerializeField] protected Attacker attacker;
     [SerializeField] protected SoldierHPBar soldierHp;
+    [SerializeField] private MovableAnimation unitAnimation;
     [SerializeField] private float moveSecLength;
-    [SerializeField] private GameObject Graphic;
-
-    private bool isOpponent = false;
 
     protected int direction = 1;
     public int Direction { get { return direction; } }
@@ -125,7 +120,6 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         {
             soldier = new SyncSoldier(this);
             damagable = new SyncDamagable(this, soldierHp);
-            isOpponent = true;
         }
     }
 
@@ -140,14 +134,7 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         if (IsDestroyed()) return;
 
         if (!SoldierState.Equals(State.Moving))
-        {
-            LeanTween.alpha(Graphic, 0f, 0f);
-            LeanTween.alpha(Graphic, 1f, 0.15f);
-            Graphic.transform.localScale = new Vector3(0.2f, 2f, 1f);
-            LeanTween.scale(Graphic, Vector3.one, 0.25f);
-            Graphic.transform.localPosition += new Vector3(0f, 2f, 0f);
-            LeanTween.moveLocal(Graphic, Vector3.zero, 0.25f);
-        }
+            unitAnimation.AnimateEntry(Vector3.zero, Vector3.one);
 
         SoldierState = State.Moving;
         soldier.MoveCell(x, y);

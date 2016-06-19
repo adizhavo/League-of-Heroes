@@ -24,10 +24,18 @@ public class Tower : Soldier {
         CameraShake.Instance.DoShake(ShakeType.Medium);
         Grid.Instance.ReleaseCells(CurrentCell.CellId, StopAreaSize);
         base.Destroy();
+
+        if (photonView.isMine) photonView.RPC("DestroyTower", PhotonTargets.All);
     }
     #endregion
 
     #region Concrete Tower Implementation
+    [PunRPC]
+    protected virtual void DestroyTower()
+    {
+        MatchObserver.Instance.Observe(this);
+    }
+
     [SerializeField] protected IntVector2 StopAreaSize;
 
     protected override void Awake()

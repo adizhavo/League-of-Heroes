@@ -29,6 +29,7 @@ GameObject:
   - 114: {fileID: 11400958}
   - 114: {fileID: 11407140}
   - 114: {fileID: 11410884}
+  - 114: {fileID: 11423736}
   m_Layer: 0
   m_Name: FlyCard
   m_TagString: Untagged
@@ -166,6 +167,7 @@ MonoBehaviour:
   objectSpawnCodeCall: FlySoldier
   lerpSpeed: 4
   cardSprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  cardAnimation: {fileID: 11423736}
 --- !u!114 &11407140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,6 +196,18 @@ MonoBehaviour:
   card: {fileID: 11400958}
   SpRenderer: {fileID: 21227842}
   manaCost: {fileID: 10205516}
+--- !u!114 &11423736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 108596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c0e2403c9a664ad98917ed5791819a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphic: {fileID: 108596}
 --- !u!212 &21227842
 SpriteRenderer:
   m_ObjectHideFlags: 1
