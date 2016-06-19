@@ -52,8 +52,13 @@ public class PlayerCard : MonoBehaviour, Card {
 
     public void Discard()
     {
-        cardState = States.Discarted;
-        Destroy( gameObject );
+        cardAnimation.AnimateDestroy(
+            () =>
+            {
+                cardState = States.Discarted;
+                Destroy( gameObject );
+            }
+        );
     }
     #endregion
 
@@ -62,20 +67,9 @@ public class PlayerCard : MonoBehaviour, Card {
     public void Position(Vector3 movePos, Vector3 scale, bool snap = false)
     {
         if (snap)
-        {
-            LeanTween.alpha(gameObject, 0f, 0f);
-            LeanTween.alpha(gameObject, 1f, 0.2f);
-            gameObject.transform.localScale = new Vector3(0.5f, 1.5f, 1f);
-            LeanTween.scale(gameObject, scale, 0.3f);
-            gameObject.transform.position = movePos + new Vector3(0f, .5f, 0f);
-            LeanTween.move(gameObject, movePos, 0.3f).setEase(LeanTweenType.easeOutBack);
-        }
+            cardAnimation.AnimateEntry(movePos, scale);
         else
-        {
-            transform.position = new Vector3(transform.position.x, movePos.y, transform.position.z);
-            LeanTween.scale(gameObject, scale, 0.4f);
-            LeanTween.move(gameObject, movePos, 0.4f).setEase(LeanTweenType.easeInOutQuad);
-        }
+            cardAnimation.AnimateEntryAndSnap(movePos, scale);
     }
 
     public bool IsDestroyed()
@@ -86,6 +80,7 @@ public class PlayerCard : MonoBehaviour, Card {
 
     [SerializeField] private float lerpSpeed;
     [SerializeField] private Sprite cardSprite;
+    [SerializeField] private MovableAnimation cardAnimation;
     public Sprite CardSprite { get { return cardSprite; } } 
 
     private void Awake()
@@ -103,10 +98,4 @@ public class PlayerCard : MonoBehaviour, Card {
     {
         isEnabled = block >= manaCost;
     }
-
-//    private void Update()
-//    {
-//        transform.position = Vector3.Lerp(transform.position, movePos, Time.deltaTime * lerpSpeed);
-//        transform.localScale = Vector3.Lerp(transform.localScale, scale, Time.deltaTime * lerpSpeed);
-//    }
 }

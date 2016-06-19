@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11408280}
   - 114: {fileID: 11433952}
   - 114: {fileID: 11404420}
+  - 114: {fileID: 11410528}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -100,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099e72ac25fbc473790d379262313624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 10
+  maxHp: 15
 --- !u!114 &11408280
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,6 +116,18 @@ MonoBehaviour:
   Damage: 0.2
   AttackRate: 0.2
   AttackArea: {fileID: 11433952}
+--- !u!114 &11410528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a1a7eb5c702411d9e4d5d67322772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphic: {fileID: 194828}
 --- !u!114 &11433952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,8 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacker: {fileID: 11408280}
   soldierHp: {fileID: 11404420}
+  unitAnimation: {fileID: 0}
   moveSecLength: 0
-  Graphic: {fileID: 194828}
   StopAreaSize:
     X: 1
     Y: 1

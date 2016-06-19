@@ -44,6 +44,7 @@ GameObject:
   - 114: {fileID: 11417908}
   - 114: {fileID: 11405660}
   - 114: {fileID: 11427514}
+  - 114: {fileID: 11446270}
   m_Layer: 0
   m_Name: FlySoldier
   m_TagString: Untagged
@@ -130,8 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacker: {fileID: 11417908}
   soldierHp: {fileID: 11427514}
+  unitAnimation: {fileID: 0}
   moveSecLength: 1
-  Graphic: {fileID: 148550}
 --- !u!114 &11427514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,6 +170,18 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &11446270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a1a7eb5c702411d9e4d5d67322772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphic: {fileID: 148550}
 --- !u!212 &21283772
 SpriteRenderer:
   m_ObjectHideFlags: 1

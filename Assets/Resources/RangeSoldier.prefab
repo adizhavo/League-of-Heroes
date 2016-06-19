@@ -13,6 +13,7 @@ GameObject:
   - 114: {fileID: 11450442}
   - 114: {fileID: 11411112}
   - 114: {fileID: 11463138}
+  - 114: {fileID: 11433092}
   m_Layer: 0
   m_Name: RangeSoldier
   m_TagString: Untagged
@@ -128,6 +129,18 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &11433092
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 107898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a1a7eb5c702411d9e4d5d67322772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphic: {fileID: 195106}
 --- !u!114 &11450442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,8 +180,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacker: {fileID: 11450442}
   soldierHp: {fileID: 11463138}
+  unitAnimation: {fileID: 0}
   moveSecLength: 1
-  Graphic: {fileID: 195106}
 --- !u!212 &21249642
 SpriteRenderer:
   m_ObjectHideFlags: 1

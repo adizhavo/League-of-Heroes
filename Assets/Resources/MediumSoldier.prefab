@@ -44,6 +44,7 @@ GameObject:
   - 114: {fileID: 11493510}
   - 114: {fileID: 11463548}
   - 114: {fileID: 11499914}
+  - 114: {fileID: 11446468}
   m_Layer: 0
   m_Name: MediumSoldier
   m_TagString: Untagged
@@ -89,6 +90,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 414212}
   m_RootOrder: 0
+--- !u!114 &11446468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81a1a7eb5c702411d9e4d5d67322772c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Graphic: {fileID: 123850}
 --- !u!114 &11456524
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,8 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attacker: {fileID: 11493510}
   soldierHp: {fileID: 11499914}
+  unitAnimation: {fileID: 0}
   moveSecLength: 1
-  Graphic: {fileID: 123850}
 --- !u!114 &11463548
 MonoBehaviour:
   m_ObjectHideFlags: 1
