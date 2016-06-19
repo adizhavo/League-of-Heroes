@@ -1,12 +1,17 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Deck/CardBar/CardPicker.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Match/MatchEntry.cs">
     <Files>
-      <File FileName="Assets/Scripts/Deck/CardBar/CardPicker.cs" Line="28" Column="6" />
-      <File FileName="Assets/Scripts/Grid/GridCell.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Grid/Grid.cs" Line="7" Column="62" />
-      <File FileName="Assets/Scripts/FloatingText/FloatingMovement.cs" Line="68" Column="6" />
       <File FileName="Assets/Scripts/Grid/DeployableCells.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Match/MatchEnd.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Deck/CardBar/CardPicker.cs" Line="22" Column="30" />
+      <File FileName="Assets/Scripts/Grid/GridCell.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Grid/Grid.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/FloatingText/FloatingMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Match/MatchObserver.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Match/MatchEndAnimation.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Utility/Rotate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Match/MatchEntry.cs" Line="29" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

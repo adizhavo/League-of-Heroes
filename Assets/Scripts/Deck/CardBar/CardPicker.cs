@@ -12,11 +12,15 @@ public class CardPicker : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
             CheckForCardSelection();
-        else if (Input.GetMouseButton(0))
-            DragCardToGrid();
         else if (Input.GetMouseButtonUp(0))
             ReleaseCard();
 	}
+
+    private void LateUpdate()
+    {
+        if (Input.GetMouseButton(0))
+            DragCardToGrid();
+    }
 
     private void CheckForCardSelection()
     {

@@ -21,20 +21,17 @@ public class MatchEntry : PunBehaviour, IPunObservable {
         StartCoroutine(WaitToStart());
     }
 
-    private void DispatchMatchStart()
-    {
-       photonView.RPC("StartMatch", PhotonTargets.All);
-    }
-
     private IEnumerator WaitToStart()
     {
         yield return waitToStart;
-        matchEntryAnim.AnimateExit(DispatchMatchStart);
+        if (photonView.isMine) photonView.RPC("StartMatch", PhotonTargets.All);
     }
 
     [PunRPC]
     public void StartMatch()
     {
+        StopAllCoroutines();
+        matchEntryAnim.AnimateExit();
         MatchObserver.Instance.StartMatch();
     }
 }
