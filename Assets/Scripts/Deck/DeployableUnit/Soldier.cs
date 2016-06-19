@@ -104,8 +104,6 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     [SerializeField] private MovableAnimation unitAnimation;
     [SerializeField] private float moveSecLength;
 
-    private bool isOpponent = false;
-
     protected int direction = 1;
     public int Direction { get { return direction; } }
 
@@ -122,7 +120,6 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
         {
             soldier = new SyncSoldier(this);
             damagable = new SyncDamagable(this, soldierHp);
-            isOpponent = true;
         }
     }
 

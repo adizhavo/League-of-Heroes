@@ -8,6 +8,8 @@ public class CardPicker : MonoBehaviour {
 
 	private void Update () 
     {
+        if(!MatchObserver.Instance.IsEnabled()) return;
+
         if (Input.GetMouseButtonDown(0))
             CheckForCardSelection();
         else if (Input.GetMouseButton(0))

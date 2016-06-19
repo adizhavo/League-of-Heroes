@@ -19,6 +19,7 @@ public class MatchConnector : PunBehaviour
     public InputField nameInput;
 
     private RoomJoinType playerRoomJoinType;
+    private RoomOptions options;
 
     private void Awake()
     {
@@ -55,6 +56,7 @@ public class MatchConnector : PunBehaviour
 
     public override void OnJoinedRoom()
     {
+        SetPlayers();
         string stateMessage = playerRoomJoinType.Equals(RoomJoinType.Create) ? "Waiting for other player..." : "Player connected, starting match...";
         SetStatus(stateMessage);
     }
@@ -66,16 +68,31 @@ public class MatchConnector : PunBehaviour
 
     public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
     {
-        RoomOptions options = new RoomOptions();
+        options = new RoomOptions();
         options.maxPlayers = 2;
-
         PhotonNetwork.CreateRoom("", options, null);
     }
 
     public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
     {
-        StartMatch();
+        if (PhotonNetwork.playerList.Length >= options.maxPlayers) 
+        {
+            SetPlayers();
+            StartMatch();
+        }
+
         SetStatus("Player connected, starting match...");
+    }
+
+    public void SetPlayers()
+    {
+        if (PhotonNetwork.playerList == null || PhotonNetwork.room.playerCount == 0) return;
+
+        for (int i = 0; i < PhotonNetwork.room.playerCount; i++)
+            if (PhotonNetwork.playerList[i].isLocal)
+                PlayerInRoom.Instance.Player = PhotonNetwork.playerList[i];
+            else
+                PlayerInRoom.Instance.Opponent = PhotonNetwork.playerList[i];
     }
 
     private void SetStatus(string text)

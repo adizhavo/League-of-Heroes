@@ -6,7 +6,6 @@ public class MatchObserver : MonoBehaviour
     private static MatchObserver instance;
     public static MatchObserver Instance { get { return instance; } } 
 
-    private int maxEndTower = 3;
     private int playerTowerDestroyed = 0;
     private int opponentTowerDestroyed = 0;
 
@@ -20,8 +19,19 @@ public class MatchObserver : MonoBehaviour
 	private void Awake()
     {
         instance = this;
-        observerState = State.Observe;
+        observerState = State.Ignore;
 	}
+
+    public void StartMatch()
+    {
+        if (!IsEnabled())
+            observerState = State.Observe;
+    }
+
+    public bool IsEnabled()
+    {
+        return observerState.Equals(State.Observe);
+    }
 
     public void Observe(Tower destroyedTower)
     {
