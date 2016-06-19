@@ -257,6 +257,7 @@ Transform:
   - {fileID: 1910324772}
   - {fileID: 124413107}
   - {fileID: 213146993}
+  - {fileID: 1053920006}
   m_Father: {fileID: 1964650527}
   m_RootOrder: 0
 --- !u!114 &346935341
@@ -281,6 +282,8 @@ MonoBehaviour:
     Pool: {fileID: 124413108}
   - CallCode: Nexus
     Pool: {fileID: 213146994}
+  - CallCode: HpBar
+    Pool: {fileID: 1053920007}
 --- !u!1 &520566361
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +530,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1042927241}
+--- !u!1 &1053920005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1053920006}
+  - 114: {fileID: 1053920007}
+  m_Layer: 0
+  m_Name: HpBars
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1053920006
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053920005}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 346935340}
+  m_RootOrder: 5
+--- !u!114 &1053920007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1053920005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0946d5ab00f4727ae51c0fe198a754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectToPool: {fileID: 156314, guid: abb16e2b4dee24a07bce92bb2835ed92, type: 2}
+  PoolSize: 30
+  ParentName: HpBar
 --- !u!1 &1153603080
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,9 +7,9 @@ public class CardMovableAnimation : MovableAnimation {
     {
         LeanTween.alpha(Graphic, 0f, 0f);
         LeanTween.alpha(Graphic, 1f, 0.4f);
-        gameObject.transform.localScale = new Vector3(0.5f, 1.5f, 1f);
+        gameObject.transform.localScale = new Vector3(0.5f, 1f, 1f);
         LeanTween.scale(Graphic, scale, 0.3f);
-        gameObject.transform.position = pos + new Vector3(0f, .5f, 0f);
+        gameObject.transform.position = pos + new Vector3(0f, .2f, 0f);
         LeanTween.move(Graphic, pos, 0.3f).setEase(LeanTweenType.easeOutBack);
     }
 

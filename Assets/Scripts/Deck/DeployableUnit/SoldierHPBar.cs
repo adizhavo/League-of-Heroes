@@ -6,8 +6,11 @@ public class SoldierHPBar : MonoBehaviour
     [SerializeField] private int maxHp;
     public int MaxHp { get { return maxHp; } }
 
-    [SerializeField] private Transform CurrentHp;
-    [SerializeField] private Transform Damage;
+    [SerializeField] private GameObject HpBarPrefab;
+    [SerializeField] private Vector3 HpLocalPos;
+    [SerializeField] private Vector3 HpLocalScale;
+
+    private SoldierHpUI HpBarGraphic;
 
     private Damagable unitDamage;
 
@@ -16,12 +19,15 @@ public class SoldierHPBar : MonoBehaviour
         this.unitDamage = unitDamage;
     }
 
+    private void Start()
+    {
+        HpBarGraphic = (Instantiate(HpBarPrefab) as GameObject).GetComponent<SoldierHpUI>();
+        HpBarGraphic.Init(transform, HpLocalPos, HpLocalScale);
+    }
+
     private void Update()
     {
         float xScale = unitDamage.GetHp() / maxHp;
-        xScale = Mathf.Clamp01(xScale);
-
-        CurrentHp.localScale = new Vector3(xScale, 1f, 1f);
-        Damage.localScale = Vector3.Lerp(Damage.localScale, CurrentHp.localScale, Time.deltaTime * 3);
+        HpBarGraphic.SetUIBar(xScale);
     }
 }
