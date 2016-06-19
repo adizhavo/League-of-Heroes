@@ -28,12 +28,12 @@ public class PlayerInRoom
 
     public bool IsRoomFilled()
     {
-        return opponent != null && player != null;
+        return !opponent.isInactive && !player.isInactive;
     }
 
     public PhotonPlayer GetMissedPlayer()
     {
-        return opponent == null ? opponent : player;
+        return opponent.isInactive ? opponent : player;
     }
 
     public PhotonPlayer GetPlayerInRoom()
@@ -44,6 +44,6 @@ public class PlayerInRoom
             return player;
         }
 
-        return opponent != null ? opponent : player;
+        return player.isInactive ? opponent : player;
     }
 }

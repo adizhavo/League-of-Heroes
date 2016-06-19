@@ -17,7 +17,7 @@ public class MatchEntry : PunBehaviour, IPunObservable {
     {
         waitToStart = new WaitForSeconds(5);
         yield return new WaitForEndOfFrame();
-        matchEntryAnim.AnimateEntry(null);
+        matchEntryAnim.AnimateEntry();
         StartCoroutine(WaitToStart());
     }
 

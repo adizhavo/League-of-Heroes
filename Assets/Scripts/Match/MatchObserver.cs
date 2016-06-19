@@ -5,6 +5,8 @@ public class MatchObserver : MonoBehaviour
 {
     private static MatchObserver instance;
     public static MatchObserver Instance { get { return instance; } } 
+    [SerializeField] private SessionTimer MatchTime;
+    [SerializeField] private MatchEnd EndSession;
 
     private int playerTowerDestroyed = 0;
     private int opponentTowerDestroyed = 0;
@@ -25,7 +27,10 @@ public class MatchObserver : MonoBehaviour
     public void StartMatch()
     {
         if (!IsEnabled())
+        {
             observerState = State.Observe;
+            MatchTime.StartTimer();
+        }
     }
 
     public bool IsEnabled()
@@ -52,31 +57,41 @@ public class MatchObserver : MonoBehaviour
         else playerTowerDestroyed ++;
     }
 
+    private void Update()
+    {
+        if (observerState.Equals(State.Ignore)) return;
+        if (MatchTime.HasFinished()) EndMatchByScore();
+        if (!PlayerInRoom.Instance.IsRoomFilled()) WinsPlayerInRoom();
+    }
+
     public void EndMatchByScore()
     {
-        if (playerTowerDestroyed > opponentTowerDestroyed)
-            PlayerWins();
-        else if (playerTowerDestroyed < opponentTowerDestroyed)
-            OpponentWins();
-        else
-            Tie();
+        if (playerTowerDestroyed > opponentTowerDestroyed) PlayerWins();
+        else if (playerTowerDestroyed < opponentTowerDestroyed) OpponentWins();
+        else Tie();
+    }
+
+    private void WinsPlayerInRoom()
+    {
+        EndSession.DisplayWinner(PlayerInRoom.Instance.GetPlayerInRoom());
+        observerState = State.Ignore;
     }
 
     private void OpponentWins()
     {
-        Debug.Log("Opponent wins");
+        EndSession.DisplayWinner(PlayerInRoom.Instance.Opponent);
         observerState = State.Ignore;
     }
 
     private void PlayerWins()
     {
-        Debug.Log("Player wins");
+        EndSession.DisplayWinner(PlayerInRoom.Instance.Player);
         observerState = State.Ignore;
     }
 
     private void Tie()
     {
-        Debug.Log("Tie");
+        EndSession.DisplayWinner(null);
         observerState = State.Ignore;
     }
 }

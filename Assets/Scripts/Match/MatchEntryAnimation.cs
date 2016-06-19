@@ -17,7 +17,7 @@ public class MatchEntryAnimation : MonoBehaviour {
         opponentText.text = PlayerInRoom.Instance.Opponent.name;
     }
 
-    public void AnimateEntry(Action callback)
+    public void AnimateEntry(Action callback = null)
     {
         VS.SetActive(true);
         BackFade.SetActive(true);
@@ -50,7 +50,7 @@ public class MatchEntryAnimation : MonoBehaviour {
         );
     }
 
-    public void AnimateExit(Action callback)
+    public void AnimateExit(Action callback = null)
     {
         LeanTween.alpha(VS, 0f, 0.3f);
         LeanTween.alpha(BackFade, 0f, 0.3f);

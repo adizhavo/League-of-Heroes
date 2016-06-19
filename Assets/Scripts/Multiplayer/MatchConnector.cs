@@ -70,7 +70,7 @@ public class MatchConnector : PunBehaviour
     {
         options = new RoomOptions();
         options.maxPlayers = 2;
-        PhotonNetwork.CreateRoom("", options, null);
+        PhotonNetwork.CreateRoom("Eternal", options, null);
     }
 
     public override void OnPhotonPlayerConnected(PhotonPlayer newPlayer)
@@ -79,6 +79,7 @@ public class MatchConnector : PunBehaviour
         {
             SetPlayers();
             StartMatch();
+            PhotonNetwork.room.visible = false;
         }
 
         SetStatus("Player connected, starting match...");
