@@ -21,7 +21,6 @@ public class MatchEndAnimation : MonoBehaviour {
         LeanTween.alpha(BackFade, 0f, 0f);
         LeanTween.alpha(BackFade, 0f, 0.3f).setDelay(Mathf.Epsilon);
 
-        Vector3 playerPos = Result.transform.position;
         Result.transform.localScale = Vector3.zero;
         LeanTween.scale(Result, Vector3.one, 0.3f).setOnComplete(
             () =>
