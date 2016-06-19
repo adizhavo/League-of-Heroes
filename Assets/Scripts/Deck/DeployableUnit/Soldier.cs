@@ -21,10 +21,9 @@ public class Soldier : PunBehaviour, IPunObservable, Deployable, Content, Movabl
     public virtual void Destroy()
     {
         if (IsDestroyed()) return;
+        SoldierState = State.Destroyed;
 
         if (CurrentCell != null) CurrentCell.CellContent = null;
-
-        SoldierState = State.Destroyed;
         unitAnimation.AnimateDestroy(
             () =>
             {

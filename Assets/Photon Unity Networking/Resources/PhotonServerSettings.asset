@@ -41,4 +41,5 @@ MonoBehaviour:
   - MoveCell
   - DamageNetwork
   - Init
+  - DestroyTower
   DisableAutoOpenWizard: 1

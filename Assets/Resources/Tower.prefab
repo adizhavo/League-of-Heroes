@@ -185,8 +185,8 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: 11448120}
   ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
+  viewIdField: 0
+  instantiationId: -1
   isRuntimeInstantiated: 0
 --- !u!212 &21261616
 SpriteRenderer:
