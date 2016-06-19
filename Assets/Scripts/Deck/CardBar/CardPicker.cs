@@ -29,6 +29,7 @@ public class CardPicker : MonoBehaviour {
 
     private void DragCardToGrid()
     {
+        DeployableCells.Instance.HighLight();
         RaycastHit2D hit2D = GetHitOnMousePos();
 
         if (isSelectionValid(hit2D))
@@ -48,7 +49,8 @@ public class CardPicker : MonoBehaviour {
 
     private void ReleaseCard()
     {
-        if (selectedCard == null || selector.SelectedCell == null || selector.SelectedCell.HasObstacle())
+        DeployableCells.Instance.Release();
+        if (CanDeployCard())
         {
             selectedCard = null;
             selector.Release();
@@ -58,6 +60,11 @@ public class CardPicker : MonoBehaviour {
         selectedCard.Deploy(selector.SelectedCell);
         selector.Release();
         UpdateManaBar();
+    }
+
+    private bool CanDeployCard()
+    {
+        return selectedCard == null || selector.SelectedCell == null || selector.SelectedCell.HasObstacle() || !selector.SelectedCell.CanDeploy;
     }
 
     private void UpdateManaBar()

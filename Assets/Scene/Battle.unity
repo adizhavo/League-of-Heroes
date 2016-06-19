@@ -913,6 +913,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 892490392}
   - 114: {fileID: 892490393}
+  - 114: {fileID: 892490394}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -948,6 +949,18 @@ MonoBehaviour:
     X: 17
     Y: 22
   CellSpace: 0.3
+--- !u!114 &892490394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 892490391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12cdb7252b4bb472b813cf1a82b89d63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DeployableIdY: 10
 --- !u!1 &899196622
 GameObject:
   m_ObjectHideFlags: 0

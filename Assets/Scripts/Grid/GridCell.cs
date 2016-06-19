@@ -14,6 +14,7 @@ public class GridCell : MonoBehaviour {
         get { return content == null ? nullContent : content; } } 
 
     [SerializeField] private CellHighlighter highlighter;
+    public bool CanDeploy = false;
 
     private void Awake()
     {
