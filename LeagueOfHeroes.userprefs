@@ -1,14 +1,9 @@
 ﻿<Properties RefactoringSettings.EnableRefactorings="True" StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Multiplayer/MatchConnector.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Deck/DeployableUnit/Tower.cs">
     <Files>
-      <File FileName="Assets/Scripts/Deck/CardBar/NextCard.cs" Line="21" Column="23" />
-      <File FileName="Assets/Scripts/Deck/Player Card/PlayerCard.cs" Line="74" Column="10" />
-      <File FileName="Assets/Scripts/Deck/DeployableUnit/Soldier.cs" Line="149" Column="63" />
-      <File FileName="Assets/Scripts/ManaBar/ManaBarUI.cs" Line="73" Column="36" />
-      <File FileName="Assets/Scripts/Multiplayer/MatchConnector.cs" Line="89" Column="63" />
-      <File FileName="Assets/Scripts/FloatingText/FloatingText.cs" Line="16" Column="23" />
-      <File FileName="Assets/Scripts/FloatingText/FloatingMovement.cs" Line="34" Column="53" />
+      <File FileName="Assets/Scripts/Deck/DeployableUnit/Tower.cs" Line="16" Column="6" />
+      <File FileName="Assets/Scripts/Deck/DeployableUnit/Nexus.cs" Line="13" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

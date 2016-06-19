@@ -55,7 +55,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 405888}
   - 114: {fileID: 11468828}
-  - 114: {fileID: 11448120}
+  - 114: {fileID: 11447498}
   - 114: {fileID: 11408280}
   - 114: {fileID: 11433952}
   - 114: {fileID: 11404420}
@@ -303,7 +303,7 @@ MonoBehaviour:
   attackArea:
     X: 4
     Y: 4
---- !u!114 &11448120
+--- !u!114 &11447498
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 113958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad075ec5445224b1194773b1a768044e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ba654720a71445d9a42b307cd481c77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attacker: {fileID: 11408280}
@@ -353,7 +353,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
-  - {fileID: 11448120}
+  - {fileID: 11447498}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1
