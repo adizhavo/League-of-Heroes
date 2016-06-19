@@ -66,8 +66,8 @@ public class MatchObserver : MonoBehaviour
 
     public void EndMatchByScore()
     {
-        if (playerTowerDestroyed > opponentTowerDestroyed) PlayerWins();
-        else if (playerTowerDestroyed < opponentTowerDestroyed) OpponentWins();
+        if (playerTowerDestroyed < opponentTowerDestroyed) PlayerWins();
+        else if (playerTowerDestroyed > opponentTowerDestroyed) OpponentWins();
         else Tie();
     }
 
